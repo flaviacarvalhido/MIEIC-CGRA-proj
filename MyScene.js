@@ -91,6 +91,9 @@ class MyScene extends CGFscene {
     if (this.gui.isKeyPressed("KeyW")) {
       text += " W ";
       keysPressed = true;
+      if (this.vehicle.vel === 0) {
+        this.vehicle.vel = 1;
+      }
       this.vehicle.accelerate(this.speedFactor * this.vehicle.vel);
     }
     if (this.gui.isKeyPressed("KeyS")) {
@@ -113,8 +116,10 @@ class MyScene extends CGFscene {
       keysPressed = true;
       this.vehicle.reset();
     }
-    if (keysPressed)
+    if (keysPressed) {
       console.log(text);
+      this.vehicle.update();
+    }
   }
 
   display() {

@@ -11,6 +11,7 @@ class MyScene extends CGFscene {
     this.initCameras();
     this.initLights();
 
+
     //Background color
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -20,6 +21,7 @@ class MyScene extends CGFscene {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.setUpdatePeriod(50);
+
 
     this.enableTextures(true);
 
@@ -49,6 +51,8 @@ class MyScene extends CGFscene {
     this.displayCylinder = false;
     this.displayVehicle = false;
     this.selectedTexture = 0;
+    this.speedFactor = 1;
+    this.scaleFactor = 1;
     this.textureIds = { 'Mountains': 0, 'Desert Mountains': 1 };
   }
   initLights() {
@@ -74,10 +78,43 @@ class MyScene extends CGFscene {
   }
   // called periodically (as per setUpdatePeriod() in init())
   update(t) {
-    //To be done...
+    this.checkKeys();
   }
   updateMapTexture() {
     this.cubeMap.updateTex();
+  }
+
+  checkKeys() {
+    var text = "Keys pressed: ";
+    var keysPressed = false;
+    // Check for key codes e.g. in https://keycode.info/
+    if (this.gui.isKeyPressed("KeyW")) {
+      text += " W ";
+      keysPressed = true;
+      this.vehicle.accelerate(this.speedFactor * this.vehicle.vel);
+    }
+    if (this.gui.isKeyPressed("KeyS")) {
+      text += " S ";
+      keysPressed = true;
+      this.vehicle.accelerate(-this.speedFactor * this.vehicle.vel);
+    }
+    if (this.gui.isKeyPressed("KeyA")) {
+      text += " A ";
+      keysPressed = true;
+      this.vehicle.turn(10);
+    }
+    if (this.gui.isKeyPressed("KeyD")) {
+      text += " D ";
+      keysPressed = true;
+      this.vehicle.turn(-10);
+    }
+    if (this.gui.isKeyPressed("KeyR")) {
+      text += " R ";
+      keysPressed = true;
+      this.vehicle.reset();
+    }
+    if (keysPressed)
+      console.log(text);
   }
 
   display() {
@@ -112,7 +149,19 @@ class MyScene extends CGFscene {
     }
 
     if (this.displayVehicle) {
+
+      this.pushMatrix();
+
+      var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+        0.0, this.scaleFactor, 0.0, 0.0,
+        0.0, 0.0, this.scaleFactor, 0.0,
+        0.0, 0.0, 0.0, 1.0];
+
+      this.multMatrix(sca);
       this.vehicle.display();
+      this.popMatrix();
+
+
     }
 
     // ---- END Primitive drawing section

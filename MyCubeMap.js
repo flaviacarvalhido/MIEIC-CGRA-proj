@@ -23,6 +23,7 @@ class MyCubeMap extends CGFobject {
     this.newmatBack.setDiffuse(0, 0, 0, 1);
     this.newmatBack.setSpecular(0, 0, 0, 1);
     this.newmatBack.setShininess(10.0);
+    this.newmatBack.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatBack.loadTexture("images/split_cubemap/back.png");
     this.newmatBack.setTextureWrap("REPEAT", "REPEAT");
 
@@ -31,6 +32,7 @@ class MyCubeMap extends CGFobject {
     this.newmatBottom.setDiffuse(0, 0, 0, 1);
     this.newmatBottom.setSpecular(0, 0, 0, 1);
     this.newmatBottom.setShininess(10.0);
+    this.newmatBottom.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatBottom.loadTexture("images/split_cubemap/bottom.png");
     this.newmatBottom.setTextureWrap("REPEAT", "REPEAT");
 
@@ -39,6 +41,7 @@ class MyCubeMap extends CGFobject {
     this.newmatFront.setDiffuse(0, 0, 0, 1);
     this.newmatFront.setSpecular(0, 0, 0, 1);
     this.newmatFront.setShininess(10.0);
+    this.newmatFront.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatFront.loadTexture("images/split_cubemap/front.png");
     this.newmatFront.setTextureWrap("REPEAT", "REPEAT");
 
@@ -47,6 +50,7 @@ class MyCubeMap extends CGFobject {
     this.newmatLeft.setDiffuse(0, 0, 0, 1);
     this.newmatLeft.setSpecular(0, 0, 0, 1);
     this.newmatLeft.setShininess(10.0);
+    this.newmatLeft.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatLeft.loadTexture("images/split_cubemap/left.png");
     this.newmatLeft.setTextureWrap("REPEAT", "REPEAT");
 
@@ -55,6 +59,7 @@ class MyCubeMap extends CGFobject {
     this.newmatRight.setDiffuse(0, 0, 0, 1);
     this.newmatRight.setSpecular(0, 0, 0, 1);
     this.newmatRight.setShininess(10.0);
+    this.newmatRight.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatRight.loadTexture("images/split_cubemap/right.png");
     this.newmatRight.setTextureWrap("REPEAT", "REPEAT");
 
@@ -63,6 +68,7 @@ class MyCubeMap extends CGFobject {
     this.newmatTop.setDiffuse(0, 0, 0, 1);
     this.newmatTop.setSpecular(0, 0, 0, 1);
     this.newmatTop.setShininess(10.0);
+    this.newmatTop.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatTop.loadTexture("images/split_cubemap/top.png");
     this.newmatTop.setTextureWrap("REPEAT", "REPEAT");
   }

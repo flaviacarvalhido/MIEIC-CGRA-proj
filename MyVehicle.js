@@ -10,11 +10,14 @@ class MyVehicle extends CGFobject {
 
         this.angY = 0;
         this.vel = 0;
-
         //posicao:
         this.x = 0;
         this.y = 0;
         this.z = 0;
+
+        this.rotate;
+        this.vehicleShape=new MyVShape(this.scene);
+
         this.initBuffers();
     }
     initBuffers() {
@@ -65,7 +68,7 @@ class MyVehicle extends CGFobject {
 
             ang += alphaAng;
         }
-
+        
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
@@ -95,6 +98,7 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
+
         this.scene.pushMatrix();
 
         this.scene.translate(this.x, this.y, this.z);
@@ -103,6 +107,7 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, 0, -0.5); //pos inicial
         this.scene.rotate(90 * Math.PI / 180, 1, 0, 0);
 
+        this.vehicleShape.display(this.rotate,this.vel);
         super.display();
         this.scene.popMatrix();
     }

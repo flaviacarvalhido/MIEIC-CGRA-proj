@@ -40,30 +40,32 @@ class MyVShape extends CGFobject {
         this.gondola.display();
         this.scene.popMatrix();
     }
-    lemesDisplay(angulo) {
+    lemesDisplay(turn) {
         this.scene.pushMatrix();
         this.scene.translate(0.8, -1.7, -0);
-        this.scene.scale(0.65, 0.50, 0.65);
+        this.scene.scale(0.65, 0.50, 0.70);
         this.lemeE.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(-0.8, -1.7, -0);
-        this.scene.scale(0.65, 0.50, 0.65);
+        this.scene.scale(0.65, 0.50, 0.70);
         this.lemeD.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0, -1.7, -0.85);
+        this.scene.rotate(turn,0,1,0);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.65, 0.50, 0.65);
+        this.scene.scale(0.65, 0.50, 0.70);
         this.lemeC.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0, -1.7, 0.9);
+        this.scene.rotate(turn,0,1,0);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.65, 0.50, 0.65);
+        this.scene.scale(0.65, 0.50, 0.70);
         this.lemeB.display();
         this.scene.popMatrix();
     }
@@ -81,13 +83,11 @@ class MyVShape extends CGFobject {
         this.scene.scale(0.4, 0.4, 0.4);
         this.helice.display(vel);
         this.scene.popMatrix();
-
     }
-    display(angulo, speed) {
+    display(turn, speed) {
         this.corpoDisplay();
         this.gondolaDisplay();
-        this.lemesDisplay(angulo);
+        this.lemesDisplay(turn);
         this.helicesDisplay(speed);
-
     }
 }

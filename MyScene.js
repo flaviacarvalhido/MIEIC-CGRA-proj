@@ -44,14 +44,17 @@ class MyScene extends CGFscene {
 
     this.vehicle = new MyVehicle(this, 4, 1);
 
+    this.terrain = new MyTerrain(this);
+
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displaySphere = false;
     this.displayMap = false;
     this.displayCylinder = false;
     this.displayVehicle = false;
+    this.displayTerrain = false;
     this.selectedTexture = 0;
-    this.speedFactor = 0.01;
+    this.speedFactor = 0.1;
     this.scaleFactor = 1;
     this.textureIds = { 'Mountains': 0, 'Desert Mountains': 1 };
   }
@@ -66,7 +69,7 @@ class MyScene extends CGFscene {
       0.4,
       0.1,
       500,
-      vec3.fromValues(15, 15, 15),
+      vec3.fromValues(30, 30, 30),
       vec3.fromValues(0, 0, 0)
     );
   }
@@ -92,7 +95,7 @@ class MyScene extends CGFscene {
       text += " W ";
       keysPressed = true;
       if (this.vehicle.vel === 0) {
-        this.vehicle.vel = 0.01;
+        this.vehicle.vel = 0.1;
       }
       this.vehicle.accelerate(this.speedFactor * this.vehicle.vel);
     }
@@ -116,8 +119,8 @@ class MyScene extends CGFscene {
       keysPressed = true;
       this.vehicle.reset();
     }
-    if (!this.gui.isKeyPressed("KeyA")&&!this.gui.isKeyPressed("KeyD"))
-      this.vehicle.lemeTurn=0;
+    if (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))
+      this.vehicle.lemeTurn = 0;
     if (keysPressed) {
       console.log(text);
       this.vehicle.update();
@@ -169,6 +172,14 @@ class MyScene extends CGFscene {
       this.popMatrix();
 
 
+    }
+
+    if (this.displayTerrain) {
+      this.pushMatrix();
+
+      this.translate(0, -5, 0);
+      this.terrain.display();
+      this.popMatrix();
     }
 
     // ---- END Primitive drawing section

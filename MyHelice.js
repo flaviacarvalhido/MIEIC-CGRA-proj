@@ -31,7 +31,7 @@ class MyHelice extends CGFobject {
 
     }
     display(speedRotate){
-        this.helice(speedRotate);
+        this.helice(speedRotate*30);
         this.scene.pushMatrix();
         this.scene.scale(0.4,0.3,0.9);
         this.scene.translate(0,0,1);

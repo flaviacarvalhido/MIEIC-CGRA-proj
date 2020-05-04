@@ -16,6 +16,9 @@ class MyVehicle extends CGFobject {
         this.lemeTurn=0;
         this.vehicleShape=new MyVShape(this.scene);
 
+        this.autoP=false;
+        this.autoPAngle=0;
+
         this.initBuffers();
     }
 
@@ -40,10 +43,18 @@ class MyVehicle extends CGFobject {
         this.x = 0;
         this.y = 0;
         this.z = 0;
+        this.autoP=false;
+        this.autoPAngle=0;
     }
 
     display() {
         this.scene.pushMatrix();
+
+        if (this.autoP) {
+            this.scene.translate(-5 * Math.cos(-this.angY * Math.PI / 180.0), 0, -5 * Math.sin(-this.angY * Math.PI / 180.0));
+            this.scene.rotate(-this.autoPAngle, 0, 1, 0);
+            this.scene.translate(5 * Math.cos(-this.angY * Math.PI / 180.0), 0, 5 * Math.sin(-this.angY * Math.PI / 180.0));
+        }
 
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angY * Math.PI / 180, 0, 1, 0);
@@ -56,9 +67,19 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
     }
 
-    update() {
-        this.x += this.vel * Math.sin(this.angY * Math.PI / 180);
-        this.z += this.vel * Math.cos(this.angY * Math.PI / 180);
+    update(elapsedTime) {
+        //var text = "updating ";
+        //console.log(text);
+        
+        if (this.autoP) {
+            this.autoPAngle += 2*Math.PI*elapsedTime/5000.0;
+            //var text2 = "in autoP ";
+            //console.log(text2);
+        }
+        else {
+            this.z += 0.1 * elapsedTime * this.vel * Math.cos(this.angY*Math.PI/180.0);
+            this.x += 0.1 * elapsedTime * this.vel * Math.sin(this.angY*Math.PI/180.0);
+        }
     }
 }
 

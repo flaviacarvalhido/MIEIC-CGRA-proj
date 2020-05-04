@@ -45,6 +45,9 @@ class MyScene extends CGFscene {
 
     this.terrain = new MyTerrain(this);
 
+    //for testing purposes - delete later
+    this.supply = new MySupply(this);
+
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displaySphere = false;
@@ -52,6 +55,7 @@ class MyScene extends CGFscene {
     this.displayCylinder = false;
     this.displayVehicle = false;
     this.displayTerrain = false;
+    this.displaySupply = false;
     this.selectedTexture = 0;
     this.speedFactor = 0.1;
     this.scaleFactor = 1;
@@ -221,6 +225,19 @@ class MyScene extends CGFscene {
 
       this.translate(0, -5, 0);
       this.terrain.display();
+      this.popMatrix();
+    }
+
+    if (this.displaySupply) {
+      this.pushMatrix();
+
+      var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+        0.0, this.scaleFactor, 0.0, 0.0,
+        0.0, 0.0, this.scaleFactor, 0.0,
+        0.0, 0.0, 0.0, 1.0];
+
+      this.multMatrix(sca);
+      this.supply.display();
       this.popMatrix();
     }
 

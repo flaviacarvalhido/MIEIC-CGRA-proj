@@ -19,6 +19,14 @@ class MySupply extends CGFobject {
 
     initMat() {
 
+        this.up.texCoords = [
+            0, 1,
+            1, 1,
+            0, 0,
+            1, 0
+        ];
+        this.up.updateTexCoordsGLBuffers();
+
         this.down.texCoords = [
             0, 0,
             1, 0,
@@ -27,15 +35,6 @@ class MySupply extends CGFobject {
 
         ];
         this.down.updateTexCoordsGLBuffers();
-
-        this.up.texCoords = [
-            0, 0,
-            1, 0,
-            0, 1,
-            1, 1,
-
-        ];
-        this.up.updateTexCoordsGLBuffers();
 
         this.front.texCoords = [
             1, 1,
@@ -90,7 +89,7 @@ class MySupply extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(0, -0.5, 0);
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.newmat.apply();
 
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -101,7 +100,7 @@ class MySupply extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(0, 0.5, 0);
-        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.newmat.apply();
 
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -112,7 +111,7 @@ class MySupply extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(-0.5, 0, 0);
-        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.newmat.apply();
 
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -123,7 +122,7 @@ class MySupply extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(0.5, 0, 0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
         this.newmat.apply();
 
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -133,8 +132,8 @@ class MySupply extends CGFobject {
 
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, -0.5);
-        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.scene.translate(0, 0, 0.5);
+        this.scene.rotate(-Math.PI, 0, 1, 0);
         this.newmat.apply();
 
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -144,7 +143,7 @@ class MySupply extends CGFobject {
 
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.5);
+        this.scene.translate(0, 0, -0.5);
         this.newmat.apply();
 
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);

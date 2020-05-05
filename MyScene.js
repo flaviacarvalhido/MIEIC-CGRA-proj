@@ -45,24 +45,32 @@ class MyScene extends CGFscene {
 
     this.plane=new MyPlane(this,3,0,4,0,4);
 
+    this.terrain = new MyTerrain(this);
+
+    //for testing purposes - delete later
+    this.supply = new MySupply(this);
+
+
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.displaySphere = false;
     this.displayMap = false;
     this.displayCylinder = false;
     this.displayVehicle = false;
+
     this.displayPlane=false;
 
+    this.displayTerrain = false;
+    this.displaySupply = false;
+
     this.selectedTexture = 0;
+    this.speedFactor = 0.1;
+    this.scaleFactor = 1;
     this.textureIds = { 'Mountains': 0, 'Desert Mountains': 1 };
 
-    this.speedFactor = 1;
-    this.scaleFactor = 1;
-    
-    
     this.lastUpdate = 0;
 
-    this.setUpdatePeriod(1000/60);
+    this.setUpdatePeriod(1000 / 60);
 
   }
 
@@ -77,7 +85,7 @@ class MyScene extends CGFscene {
       0.4,
       0.1,
       500,
-      vec3.fromValues(15, 15, 15),
+      vec3.fromValues(30, 30, 30),
       vec3.fromValues(0, 0, 0)
     );
   }
@@ -99,19 +107,19 @@ class MyScene extends CGFscene {
     var text = "Keys pressed: ";
     var keysPressed = false;
     // Check for key codes e.g. in https://keycode.info/
-    if(this.vehicle.autoP==false){
+    if (this.vehicle.autoP == false) {
       if (this.gui.isKeyPressed("KeyW")) {
         text += " W ";
         keysPressed = true;
         if (this.vehicle.vel === 0) {
           this.vehicle.vel = 0.01;
         }
-        this.vehicle.accelerate(0.05*this.speedFactor * this.vehicle.vel);
+        this.vehicle.accelerate(0.05 * this.speedFactor * this.vehicle.vel);
       }
       if (this.gui.isKeyPressed("KeyS")) {
         text += " S ";
         keysPressed = true;
-        this.vehicle.accelerate(-0.05*this.speedFactor * this.vehicle.vel);
+        this.vehicle.accelerate(-0.05 * this.speedFactor * this.vehicle.vel);
       }
       if (this.gui.isKeyPressed("KeyA")) {
         text += " A ";
@@ -132,29 +140,29 @@ class MyScene extends CGFscene {
         text += " P ";
         keysPressed = true;
         this.vehicle.autoP = true;
-        this.vehicle.vel=0.1;
-        this.autoPAngle=0;
+        this.vehicle.vel = 0.1;
+        this.autoPAngle = 0;
       }
-      if (!this.gui.isKeyPressed("KeyA")&&!this.gui.isKeyPressed("KeyD"))
-        this.vehicle.lemeTurn=0;
+      if (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))
+        this.vehicle.lemeTurn = 0;
       if (keysPressed) {
         console.log(text);
         //this.vehicle.update();
       }
     }
-    else{
+    else {
       if (this.gui.isKeyPressed("KeyP")) {
-          text += " P ";
-          keysPressed = true;
-          this.vehicle.autoP = false;
+        text += " P ";
+        keysPressed = true;
+        this.vehicle.autoP = false;
       }
       if (this.gui.isKeyPressed("KeyR")) {
-          text += " R ";
-          keysPressed = true;
-          this.vehicle.reset();
+        text += " R ";
+        keysPressed = true;
+        this.vehicle.reset();
       }
       if (keysPressed) {
-          console.log(text);
+        console.log(text);
       }
     }
     //this.vehicle.update();
@@ -162,14 +170,14 @@ class MyScene extends CGFscene {
 
   update(t) {
     if (this.lastUpdate === 0)
-        this.lastUpdate = t;
+      this.lastUpdate = t;
     let elapsedTime = t - this.lastUpdate;
     this.lastUpdate = t;
 
     this.checkKeys();
 
     this.vehicle.update(elapsedTime);
-    
+
   }
 
   display() {
@@ -221,6 +229,27 @@ class MyScene extends CGFscene {
 
     if (this.displayPlane) {
       this.plane.display();
+
+    if (this.displayTerrain) {
+      this.pushMatrix();
+
+      this.translate(0, -5, 0);
+      this.terrain.display();
+      this.popMatrix();
+    }
+
+    if (this.displaySupply) {
+      this.pushMatrix();
+
+      var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+        0.0, this.scaleFactor, 0.0, 0.0,
+        0.0, 0.0, this.scaleFactor, 0.0,
+        0.0, 0.0, 0.0, 1.0];
+
+      this.multMatrix(sca);
+      this.supply.display();
+      this.popMatrix();
+
     }
 
     // ---- END Primitive drawing section

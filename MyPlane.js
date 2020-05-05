@@ -1,3 +1,4 @@
+
 class MyPlane extends CGFobject{
 	constructor(scene, nrDivs, minS, maxS, minT, maxT) {
 		super(scene);

@@ -3,9 +3,11 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
+
 class MyCubeMap extends CGFobject {
   constructor(scene) {
     super(scene);
+
     this.bottom = new MyQuad(scene);
     this.top = new MyQuad(scene);
     this.front = new MyQuad(scene);
@@ -13,10 +15,25 @@ class MyCubeMap extends CGFobject {
     this.left = new MyQuad(scene);
     this.right = new MyQuad(scene);
 
+    this.initBuffers();
+
+  }
+
+  initBuffers() {
+
+    this.bottom.initBuffers();
+    this.top.initBuffers();
+    this.front.initBuffers();
+    this.back.initBuffers();
+    this.left.initBuffers();
+    this.right.initBuffers();
+
+
     this.initMat();
   }
 
   initMat() {
+    this.scene.pushMatrix();
 
     this.newmatBack = new CGFappearance(this.scene);
     this.newmatBack.setAmbient(0.9, 0.9, 0.9, 1);
@@ -71,9 +88,12 @@ class MyCubeMap extends CGFobject {
     this.newmatTop.setEmission(0.9, 0.9, 0.9, 1);
     this.newmatTop.loadTexture("images/split_cubemap/top.png");
     this.newmatTop.setTextureWrap("REPEAT", "REPEAT");
+
+    this.scene.popMatrix();
   }
 
   display() {
+    this.scene.pushMatrix();
     this.scene.scale(50, 50, 50);
 
 
@@ -160,9 +180,12 @@ class MyCubeMap extends CGFobject {
     this.front.display();
     this.scene.popMatrix();
 
-
+    this.scene.popMatrix();
   }
+
   updateTex() {
+    this.scene.pushMatrix();
+
     if (this.scene.selectedTexture == 0) {
       this.newmatBack.loadTexture("images/split_cubemap/back.png");
       this.newmatBottom.loadTexture("images/split_cubemap/bottom.png");
@@ -179,5 +202,7 @@ class MyCubeMap extends CGFobject {
       this.newmatRight.loadTexture("images/split_skybox/right.png");
       this.newmatTop.loadTexture("images/split_skybox/top.png");
     }
+
+    this.scene.popMatrix();
   }
 }

@@ -22,6 +22,8 @@ class MyInterface extends CGFinterface {
     this.gui.add(this.scene, "displayMap").name("Display Map");
     this.gui.add(this.scene, "displayCylinder").name("Display Cylinder");
     this.gui.add(this.scene, "displayVehicle").name("Display Vehicle");
+    this.gui.add(this.scene, "displayPlane").name("Display plane");
+
     this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Map Texture').onChange(this.scene.updateMapTexture.bind(this.scene));
 
     this.gui.add(this.scene, "speedFactor", 0.1, 3).name("Speed Factor");

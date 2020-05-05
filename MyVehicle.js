@@ -81,5 +81,6 @@ class MyVehicle extends CGFobject {
             this.x += 0.1 * elapsedTime * this.vel * Math.sin(this.angY*Math.PI/180.0);
         }
     }
+
 }
 

@@ -43,6 +43,7 @@ class MyScene extends CGFscene {
 
     this.vehicle = new MyVehicle(this, 4, 1);
 
+    this.plane=new MyPlane(this,3,0,4,0,4);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -50,6 +51,8 @@ class MyScene extends CGFscene {
     this.displayMap = false;
     this.displayCylinder = false;
     this.displayVehicle = false;
+    this.displayPlane=false;
+
     this.selectedTexture = 0;
     this.textureIds = { 'Mountains': 0, 'Desert Mountains': 1 };
 
@@ -214,6 +217,10 @@ class MyScene extends CGFscene {
       this.popMatrix();
 
 
+    }
+
+    if (this.displayPlane) {
+      this.plane.display();
     }
 
     // ---- END Primitive drawing section

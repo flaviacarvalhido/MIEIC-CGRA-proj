@@ -19,10 +19,56 @@ class MyVehicle extends CGFobject {
         this.autoP=false;
         this.autoPAngle=0;
 
+        //BANDEIRA:
+        this.flagtexture = new CGFappearance(this.scene);
+        this.flagtexture.setAmbient(0.7,0.7,0.7,1);
+        this.flagtexture.setDiffuse(0.9,0.9,0.9,1);
+        this.flagtexture.setShininess(10);
+        this.flagtexture.loadTexture('images/testMap.jpg');
+        this.flagtexture.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.bandeira=new MyPlane(this.scene,20);
+        this.flagshaderR = new CGFshader(this.scene.gl,"shaders/bandeiraR.vert", "shaders/bandeira.frag");
+        this.flagshaderR.setUniformsValues({uSampler1: 3})
+        this.flagshaderR.setUniformsValues({speed: this.speed});
+        this.flagshaderR.setUniformsValues({timeFactor: this.prevUpdate});
+
+        this.flagshaderL = new CGFshader(this.scene.gl,"shaders/bandeiraL.vert", "shaders/bandeira.frag");
+        this.flagshaderL.setUniformsValues({uSampler1: 3})
+        this.flagshaderL.setUniformsValues({speed: this.speed});
+        this.flagshaderL.setUniformsValues({timeFactor: this.prevUpdate});
+
+        this.flagmap = new CGFtexture(this.scene,"images/testMap.jpg");
+
         this.initBuffers();
     }
 
-    
+    bandeiraDisplay(){
+        this.flagtexture.apply();
+        this.scene.setActiveShader(this.flagshaderR);
+        this.flagmap.bind(3);
+        this.scene.pushMatrix();
+        this.scene.translate(0,-4,0);
+        this.scene.rotate(3*Math.PI/2,1,0,0);
+        this.scene.rotate(3*Math.PI/2,0,1,0);
+        this.scene.rotate(Math.PI,1,0,0);
+        this.scene.scale(1.7,0.9,1);
+        this.bandeira.display();
+        this.scene.popMatrix();
+
+        this.scene.setActiveShader(this.flagshaderL);
+        this.flagmap.bind(3);
+        this.scene.pushMatrix();
+        this.scene.translate(0,-4,0);
+        this.scene.rotate(3*Math.PI/2,1,0,0);
+        this.scene.rotate(3*Math.PI/2,0,1,0);
+        this.scene.scale(1.7,0.9,1);
+        this.bandeira.display();
+        this.scene.popMatrix();
+        this.scene.setActiveShader(this.scene.defaultShader);
+    }
+
+
     turn(val) {
         this.angY += val;
         if(val>0){
@@ -62,7 +108,9 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, 0, -0.5); //pos inicial
         this.scene.rotate(90 * Math.PI / 180, 1, 0, 0);
 
+        this.bandeiraDisplay();
         this.vehicleShape.display(this.lemeTurn,this.vel);
+
         super.display();
         this.scene.popMatrix();
     }
@@ -80,6 +128,11 @@ class MyVehicle extends CGFobject {
             this.z += 0.1 * elapsedTime * this.vel * Math.cos(this.angY*Math.PI/180.0);
             this.x += 0.1 * elapsedTime * this.vel * Math.sin(this.angY*Math.PI/180.0);
         }
+
+        this.flagshaderR.setUniformsValues({speed: this.speed});
+        this.flagshaderR.setUniformsValues({timeFactor: elapsedTime / 1000 % 1000});
+        this.flagshaderL.setUniformsValues({speed: this.speed});
+        this.flagshaderL.setUniformsValues({timeFactor: elapsedTime / 1000 % 1000});
     }
 
 }

@@ -22,11 +22,8 @@ class MyScene extends CGFscene {
 
     this.setUpdatePeriod(50);
 
-
     this.enableTextures(true);
 
-    //Initialize scene objects
-    this.axis = new CGFaxis(this);
 
     this.sphere = new MySphere(this, 16, 8);
     this.sphereMaterial = new CGFappearance(this);
@@ -37,14 +34,12 @@ class MyScene extends CGFscene {
     this.sphereMaterial.loadTexture("images/earth.jpg");
     this.sphereMaterial.setTextureWrap("Repeat", "Clamp to edge");
 
+    //Initialize scene objects
+    this.axis = new CGFaxis(this);
     this.cubeMap = new MyCubeMap(this);
-
     this.cylinder = new MyCylinder(this, 20);
-
     this.vehicle = new MyVehicle(this, 4, 1);
-
     this.plane=new MyPlane(this,3,0,4,0,4);
-
     this.terrain = new MyTerrain(this);
 
     //for testing purposes - delete later
@@ -57,9 +52,7 @@ class MyScene extends CGFscene {
     this.displayMap = false;
     this.displayCylinder = false;
     this.displayVehicle = false;
-
     this.displayPlane=false;
-
     this.displayTerrain = false;
     this.displaySupply = false;
 
@@ -80,6 +73,7 @@ class MyScene extends CGFscene {
     this.lights[0].enable();
     this.lights[0].update();
   }
+
   initCameras() {
     this.camera = new CGFcamera(
       0.4,
@@ -89,16 +83,19 @@ class MyScene extends CGFscene {
       vec3.fromValues(0, 0, 0)
     );
   }
+
   setDefaultAppearance() {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
   // called periodically (as per setUpdatePeriod() in init())
   update(t) {
     this.checkKeys();
   }
+
   updateMapTexture() {
     this.cubeMap.updateTex();
   }
@@ -223,8 +220,6 @@ class MyScene extends CGFscene {
       this.multMatrix(sca);
       this.vehicle.display();
       this.popMatrix();
-
-
     }
 
     if (this.displayPlane) {
@@ -232,7 +227,6 @@ class MyScene extends CGFscene {
 
     if (this.displayTerrain) {
       this.pushMatrix();
-
       this.translate(0, -5, 0);
       this.terrain.display();
       this.popMatrix();
@@ -240,12 +234,10 @@ class MyScene extends CGFscene {
 
     if (this.displaySupply) {
       this.pushMatrix();
-
       var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
         0.0, this.scaleFactor, 0.0, 0.0,
         0.0, 0.0, this.scaleFactor, 0.0,
         0.0, 0.0, 0.0, 1.0];
-
       this.multMatrix(sca);
       this.supply.display();
       this.popMatrix();
@@ -254,4 +246,5 @@ class MyScene extends CGFscene {
 
     // ---- END Primitive drawing section
   }
+}
 }

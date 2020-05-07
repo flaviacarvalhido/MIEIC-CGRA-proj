@@ -1,6 +1,8 @@
 class MyVShape extends CGFobject {
     constructor(scene) {
         super(scene);
+        this.time = 0;
+
         this.corpo=new MySphere(scene,20,30);
         this.gondola=new MySphere(scene,20,30);
         this.gondolamidle=new MyCylinder(scene,20,1);
@@ -10,19 +12,31 @@ class MyVShape extends CGFobject {
         this.lemeB= new MyLeme(scene);
         this.lemeC= new MyLeme(scene);
 
-        this.flag=new MyPlane(this.scene,20);
-        this.shader=new CGFshader(this.scene.gl, "shaders/bandeira.vert", "shaders/bandeira.frag");
-        //this.shader.setUniformsValues({ uSampler1: 1 });
-        //this.shader.setUniformsValues({ vehicleSpeed: 0.05 });
-        //this.shader.setUniformsValues({time: 0});
-
         this.corpo.initBuffers();
         this.gondola.initBuffers();
         this.gondolamidle.initBuffers();
-        
+
+        this.initMaterials();
+    }
+
+    initMaterials(){
+        this.bodytexture = new CGFappearance(this.scene);
+        this.bodytexture.setAmbient(0.7,0.7,0.7,1);
+        this.bodytexture.setDiffuse(0.9,0.9,0.9,1);
+        this.bodytexture.setShininess(10);
+        this.bodytexture.loadTexture('images/cubemap.png');
+        this.bodytexture.setTextureWrap('REPEAT','REPEAT');
+
+        this.lemestexture = new CGFappearance(this.scene);
+        this.lemestexture.setAmbient(0.7,0.7,0.7,1);
+        this.lemestexture.setDiffuse(0.9,0.9,0.9,1);
+        this.lemestexture.setShininess(10);
+        this.lemestexture.loadTexture('images/skybox.png');
+        this.lemestexture.setTextureWrap('REPEAT','REPEAT');
     }
 
     corpoDisplay(){
+        this.bodytexture.apply();
         this.scene.pushMatrix();
         this.scene.scale(1, 2, 1);
         this.corpo.display();
@@ -48,6 +62,7 @@ class MyVShape extends CGFobject {
         this.scene.popMatrix();
     }
     lemesDisplay(turn) {
+        this.lemestexture.apply();
         this.scene.pushMatrix();
         this.scene.translate(0.8, -1.7, -0);
         this.scene.scale(0.65, 0.50, 0.70);
@@ -91,33 +106,8 @@ class MyVShape extends CGFobject {
         this.helice.display(vel);
         this.scene.popMatrix();
     }
-
-    flagUpdate(t){
-        this.shader.setUniformsValues({ vehicleSpeed: this.velocity+0.05 });
-        this.shader.setUniformsValues({time: t});
     
-    }
-
     display(turn, speed) {
-        this.scene.setActiveShader(this.shader);
-        this.scene.pushMatrix();
-        this.scene.translate(0,-4,0);
-        this.scene.rotate(3*Math.PI/2,1,0,0);
-        this.scene.rotate(3*Math.PI/2,0,1,0);
-        this.scene.rotate(Math.PI,1,0,0);
-        this.scene.scale(1.7,0.9,1);
-        this.flag.display();
-        this.scene.popMatrix();
-        //this.scene.setActiveShader(this.reverseShader);
-        this.scene.pushMatrix();
-        this.scene.translate(0,-4,0);
-        this.scene.rotate(3*Math.PI/2,1,0,0);
-        this.scene.rotate(3*Math.PI/2,0,1,0);
-        this.scene.scale(1.7,0.9,1);
-        this.flag.display();
-        this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
-
         this.corpoDisplay();
         this.gondolaDisplay();
         this.lemesDisplay(turn);

@@ -1,155 +1,85 @@
+
+
+/*State machine for supply drop */
+const SupplyStates = {
+    INACTIVE: 0,
+    FALLING: 1,
+    LANDED: 2
+};
+
 /**
  * MyObject
  * @constructor
  * @param scene - Reference to MyScene object
  */
 class MySupply extends CGFobject {
+
+
     constructor(scene) {
         super(scene);
-        this.down = new MyQuad(scene);
-        this.up = new MyQuad(scene);
-        this.front = new MyQuad(scene);
-        this.back = new MyQuad(scene);
-        this.left = new MyQuad(scene);
-        this.right = new MyQuad(scene);
 
-        this.initMat();
+
+        this.fall = new MySupplyFall(scene);
+        this.landed = new MySupplyLand(scene);
+
+        this.x = 0;
+        this.y = 10;
+        this.z = 0;
+
+        this.state = SupplyStates.INACTIVE;
 
     }
 
-    initMat() {
+    update() {
 
-        this.up.texCoords = [
-            0, 1,
-            1, 1,
-            0, 0,
-            1, 0
-        ];
-        this.up.updateTexCoordsGLBuffers();
+        if (this.state == SupplyStates.FALLING) {
+            this.y = this.y - 10 / 180;
+            this.display();
+        }
 
-        this.down.texCoords = [
-            0, 0,
-            1, 0,
-            0, 1,
-            1, 1,
-
-        ];
-        this.down.updateTexCoordsGLBuffers();
-
-        this.front.texCoords = [
-            1, 1,
-            0, 1,
-            1, 0,
-            0, 0,
-
-        ];
-        this.front.updateTexCoordsGLBuffers();
-
-        this.back.texCoords = [
-            1, 1,
-            0, 1,
-            1, 0,
-            0, 0,
-
-        ];
-        this.back.updateTexCoordsGLBuffers();
-
-        this.right.texCoords = [
-            1, 1,
-            0, 1,
-            1, 0,
-            0, 0,
-
-        ];
-        this.right.updateTexCoordsGLBuffers();
-
-        this.left.texCoords = [
-            1, 1,
-            0, 1,
-            1, 0,
-            0, 0,
-
-        ];
-        this.left.updateTexCoordsGLBuffers();
-
-
-        this.newmat = new CGFappearance(this.scene);
-        this.newmat.setAmbient(0.1, 0.1, 0.1, 1);
-        this.newmat.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.newmat.setSpecular(0.1, 0.1, 0.1, 1);
-        this.newmat.setShininess(10.0);
-        this.newmat.loadTexture('images/supply.jpg');
-        this.newmat.setTextureWrap('REPEAT', 'REPEAT');
     }
 
+    drop(x, y, z) {
+
+        if (x >= -10 && x <= 10 && z >= -10 && z <= 10) {
+            this.state = SupplyStates.FALLING;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+    }
+
+    land() {
+
+        if (this.y <= 0) {
+            this.state = SupplyStates.LANDED;
+        }
+
+    }
 
     display() {
 
+        if (this.state == SupplyStates.FALLING) {  //draw supply when dropping
 
+            this.scene.pushMatrix();
+            this.scene.translate(this.x, this.y, this.z);     //new position in every updatePeriod
+            this.fall.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-        this.scene.translate(0, -0.5, 0);
-        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-        this.newmat.apply();
+            this.land();
+        }
 
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        if (this.state == SupplyStates.LANDED) { //draw supply when landed
 
-        this.down.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+            this.scene.translate(this.x, 0, this.z);
+            this.land.display();
+            this.scene.popMatrix();
 
+        }
 
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0.5, 0);
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
-        this.newmat.apply();
-
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
-        this.up.display();
-        this.scene.popMatrix();
-
-
-        this.scene.pushMatrix();
-        this.scene.translate(-0.5, 0, 0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.newmat.apply();
-
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
-        this.left.display();
-        this.scene.popMatrix();
-
-
-        this.scene.pushMatrix();
-        this.scene.translate(0.5, 0, 0);
-        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
-        this.newmat.apply();
-
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
-        this.right.display();
-        this.scene.popMatrix();
-
-
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.5);
-        this.scene.rotate(-Math.PI, 0, 1, 0);
-        this.newmat.apply();
-
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
-        this.back.display();
-        this.scene.popMatrix();
-
-
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, -0.5);
-        this.newmat.apply();
-
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
-        this.front.display();
-        this.scene.popMatrix();
 
     }
+
 }

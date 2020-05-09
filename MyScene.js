@@ -39,11 +39,12 @@ class MyScene extends CGFscene {
     this.cubeMap = new MyCubeMap(this);
     this.cylinder = new MyCylinder(this, 20);
     this.vehicle = new MyVehicle(this, 4, 1);
-    this.plane=new MyPlane(this,3,0,4,0,4);
+    this.plane = new MyPlane(this, 3, 0, 4, 0, 4);
     this.terrain = new MyTerrain(this);
 
     //for testing purposes - delete later
     this.supply = new MySupply(this);
+    this.supply.drop(0, 10, 0);
 
 
     //Objects connected to MyInterface
@@ -52,7 +53,7 @@ class MyScene extends CGFscene {
     this.displayMap = false;
     this.displayCylinder = false;
     this.displayVehicle = false;
-    this.displayPlane=false;
+    this.displayPlane = false;
     this.displayTerrain = false;
     this.displaySupply = false;
 
@@ -79,7 +80,7 @@ class MyScene extends CGFscene {
       0.4,
       0.1,
       500,
-      vec3.fromValues(30, 30, 30),
+      vec3.fromValues(18, 60, 18),
       vec3.fromValues(0, 0, 0)
     );
   }
@@ -92,9 +93,7 @@ class MyScene extends CGFscene {
   }
 
   // called periodically (as per setUpdatePeriod() in init())
-  update(t) {
-    this.checkKeys();
-  }
+
 
   updateMapTexture() {
     this.cubeMap.updateTex();
@@ -174,6 +173,7 @@ class MyScene extends CGFscene {
     this.checkKeys();
 
     this.vehicle.update(elapsedTime);
+    this.supply.update();
 
   }
 
@@ -205,7 +205,10 @@ class MyScene extends CGFscene {
     }
 
     if (this.displayMap) {
+      this.pushMatrix();
+      this.translate(0, 5, 0);
       this.cubeMap.display();
+      this.popMatrix();
     }
 
     if (this.displayVehicle) {
@@ -222,12 +225,12 @@ class MyScene extends CGFscene {
       this.popMatrix();
     }
 
-    if (this.displayPlane) {
+    if (this.displayPlane)
       this.plane.display();
 
     if (this.displayTerrain) {
       this.pushMatrix();
-      this.translate(0, -5, 0);
+      this.translate(0, 0, 0);
       this.terrain.display();
       this.popMatrix();
     }
@@ -245,6 +248,6 @@ class MyScene extends CGFscene {
     }
 
     // ---- END Primitive drawing section
+
   }
-}
 }

@@ -29,7 +29,7 @@ class MyTerrain extends CGFobject {
         this.terrainMap.bind(1);
 
         this.scene.pushMatrix();
-        this.scene.scale(50, 8, 50);
+        this.scene.scale(50, 8, 50);    //scale terrain correctly
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);   //put plane in right orientation
         this.plane.display();
         this.scene.popMatrix();

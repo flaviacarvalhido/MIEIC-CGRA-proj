@@ -83,15 +83,13 @@ class MyVehicle extends CGFobject {
         this.fiotxt.apply();
 
         this.scene.pushMatrix();
-        this.scene.translate(0,10.25,-3.7);
-        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.translate(0,-3.2,0.25);
         this.scene.scale(0.025,1.7,0.025);
         this.fio.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(0,9.75,-3.7);
-        this.scene.rotate(Math.PI/2,1,0,0);
+        this.scene.translate(0,-3.2,-0.25);
         this.scene.scale(0.025,1.7,0.025);
         this.fio.display();
         this.scene.popMatrix();
@@ -125,7 +123,6 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
-        this.fiosDisplay();
 
         this.scene.pushMatrix();
 
@@ -141,6 +138,9 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, 0, -0.5); //pos inicial
         this.scene.rotate(90 * Math.PI / 180, 1, 0, 0);
 
+        this.scene.pushMatrix();
+        this.fiosDisplay();
+        this.scene.popMatrix();
         this.bandeiraDisplay();
         this.vehicleShape.display(this.lemeTurn, this.vel);
 

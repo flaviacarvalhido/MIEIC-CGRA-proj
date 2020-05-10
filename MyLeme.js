@@ -9,7 +9,7 @@ class MyLeme extends CGFobject {
     }
 
     display() {
-        
+
         this.scene.pushMatrix();
         this.scene.scale(0.5,1,1);
         this.scene.rotate(-(Math.PI/2+Math.PI/4),0,0,1);

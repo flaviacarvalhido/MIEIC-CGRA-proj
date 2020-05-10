@@ -41,6 +41,7 @@ class MyScene extends CGFscene {
     this.vehicle = new MyVehicle(this, 4, 1);
     this.plane = new MyPlane(this, 3, 0, 4, 0, 4);
     this.terrain = new MyTerrain(this);
+    this.leme= new MyLeme(this);
 
     //for testing purposes - delete later
     this.supply = new MySupply(this);
@@ -56,6 +57,7 @@ class MyScene extends CGFscene {
     this.displayPlane = false;
     this.displayTerrain = false;
     this.displaySupply = false;
+    this.displayLeme = false;
 
     this.selectedTexture = 0;
     this.speedFactor = 0.1;
@@ -64,7 +66,7 @@ class MyScene extends CGFscene {
 
     this.lastUpdate = 0;
 
-    this.setUpdatePeriod(1000 / 60);
+    this.setUpdatePeriod(/*1000 / 60*/50);
 
   }
 
@@ -139,6 +141,26 @@ class MyScene extends CGFscene {
         this.vehicle.vel = 0.1;
         this.autoPAngle = 0;
       }
+      if (this.gui.isKeyPressed("KeyC")) {
+        text += " C ";
+        keysPressed = true;
+        if(this.vehicle.vehicleShape.girl==true){
+          this.vehicle.vehicleShape.girl=false;
+          this.vehicle.vehicleShape.boy=true;
+          this.vehicle.vehicleShape.other=false;
+        }
+        else if(this.vehicle.vehicleShape.boy==true){
+          this.vehicle.vehicleShape.girl=false;
+          this.vehicle.vehicleShape.boy=false;
+          this.vehicle.vehicleShape.other=true;
+        }
+        else if(this.vehicle.vehicleShape.other==true){
+          this.vehicle.vehicleShape.girl=true;
+          this.vehicle.vehicleShape.boy=false;
+          this.vehicle.vehicleShape.other=false;
+        }
+        this.vehicle.vehicleShape.initMaterials();
+      }
       if (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))
         this.vehicle.lemeTurn = 0;
       if (keysPressed) {
@@ -173,7 +195,7 @@ class MyScene extends CGFscene {
     this.checkKeys();
 
     this.vehicle.update(elapsedTime);
-    this.supply.update();
+    //this.supply.update();
 
   }
 
@@ -227,6 +249,9 @@ class MyScene extends CGFscene {
 
     if (this.displayPlane)
       this.plane.display();
+
+    if (this.displayLeme)
+      this.leme.display();
 
     if (this.displayTerrain) {
       this.pushMatrix();

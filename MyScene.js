@@ -64,8 +64,7 @@ class MyScene extends CGFscene {
 
     this.lastUpdate = 0;
 
-    this.setUpdatePeriod(1000 / 60);
-
+    this.setUpdatePeriod(50);
   }
 
   initLights() {

@@ -86,6 +86,71 @@ class MySupplyLand extends CGFobject {
     display() {
 
 
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.newmat.apply();
+
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.down.display();
+        this.scene.popMatrix();
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(2, 0, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.newmat.apply();
+
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.up.display();
+        this.scene.popMatrix();
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(-1, 0, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.newmat.apply();
+
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.left.display();
+        this.scene.popMatrix();
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(1, 0, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.newmat.apply();
+
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.right.display();
+        this.scene.popMatrix();
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, -1);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.newmat.apply();
+
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.back.display();
+        this.scene.popMatrix();
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 1);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.newmat.apply();
+
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.front.display();
+        this.scene.popMatrix();
+
 
 
 

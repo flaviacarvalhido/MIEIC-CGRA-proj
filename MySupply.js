@@ -33,7 +33,7 @@ class MySupply extends CGFobject {
     update() {
 
         if (this.state == SupplyStates.FALLING) {
-            this.y = this.y - 10 / 180;
+            this.y = this.y - 10 / 60;
             this.display();
         }
 
@@ -74,7 +74,7 @@ class MySupply extends CGFobject {
 
             this.scene.pushMatrix();
             this.scene.translate(this.x, 0, this.z);
-            this.land.display();
+            this.landed.display();
             this.scene.popMatrix();
 
         }

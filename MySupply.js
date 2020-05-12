@@ -82,4 +82,9 @@ class MySupply extends CGFobject {
 
     }
 
+    reset() {
+        this.state = SupplyStates.INACTIVE;
+        this.display();
+    }
+
 }

@@ -12,7 +12,7 @@ class MyScene extends CGFscene {
     this.initLights();
 
 
-    //Background color
+    //Background color------------------------------------------------
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);
@@ -20,11 +20,12 @@ class MyScene extends CGFscene {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
+    //Set Update Period!----------------------------------------------
     this.setUpdatePeriod(50);
 
     this.enableTextures(true);
 
-
+    //Sphere Material-------------------------------------------------
     this.sphere = new MySphere(this, 16, 8);
     this.sphereMaterial = new CGFappearance(this);
     this.sphereMaterial.setAmbient(0.1, 0.1, 0.1, 1);
@@ -34,7 +35,7 @@ class MyScene extends CGFscene {
     this.sphereMaterial.loadTexture("images/earth.jpg");
     this.sphereMaterial.setTextureWrap("Repeat", "Clamp to edge");
 
-    //Initialize scene objects
+    //Initialize scene objects----------------------------------------
     this.axis = new CGFaxis(this);
     this.cubeMap = new MyCubeMap(this);
     this.cylinder = new MyCylinder(this, 20);
@@ -43,12 +44,14 @@ class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.leme = new MyLeme(this);
 
-    //for testing purposes - delete later
-    this.supply = new MySupply(this);
-    this.supply.drop(0, 10, 0);
+    //Supplies--------------------------------------------------------
+    this.supply1 = new MySupply(this);
+    this.supply2 = new MySupply(this);
+    this.supply3 = new MySupply(this);
+    this.supply4 = new MySupply(this);
+    this.supply5 = new MySupply(this);
 
-
-    //Objects connected to MyInterface
+    //Objects connected to MyInterface--------------------------------
     this.displayAxis = true;
     this.displaySphere = false;
     this.displayMap = false;
@@ -56,17 +59,13 @@ class MyScene extends CGFscene {
     this.displayVehicle = false;
     this.displayPlane = false;
     this.displayTerrain = false;
-    this.displaySupply = false;
     this.displayLeme = false;
-
     this.selectedTexture = 0;
     this.speedFactor = 0.1;
     this.scaleFactor = 1;
     this.textureIds = { 'Mountains': 0, 'Desert Mountains': 1 };
 
     this.lastUpdate = 0;
-
-    this.setUpdatePeriod(50);
   }
 
   initLights() {
@@ -94,8 +93,6 @@ class MyScene extends CGFscene {
   }
 
   // called periodically (as per setUpdatePeriod() in init())
-
-
   updateMapTexture() {
     this.cubeMap.updateTex();
   }
@@ -132,6 +129,11 @@ class MyScene extends CGFscene {
         text += " R ";
         keysPressed = true;
         this.vehicle.reset();
+        this.supply1.reset();
+        this.supply2.reset();
+        this.supply3.reset();
+        this.supply4.reset();
+        this.supply5.reset();
       }
       if (this.gui.isKeyPressed("KeyP")) {
         text += " P ";
@@ -162,10 +164,7 @@ class MyScene extends CGFscene {
       }
       if (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))
         this.vehicle.lemeTurn = 0;
-      if (keysPressed) {
-        console.log(text);
-        //this.vehicle.update();
-      }
+
     }
     else {
       if (this.gui.isKeyPressed("KeyP")) {
@@ -177,12 +176,41 @@ class MyScene extends CGFscene {
         text += " R ";
         keysPressed = true;
         this.vehicle.reset();
+        this.supply1.reset();
+        this.supply2.reset();
+        this.supply3.reset();
+        this.supply4.reset();
+        this.supply5.reset();
       }
-      if (keysPressed) {
-        console.log(text);
-      }
+
     }
-    //this.vehicle.update();
+
+    //Supply launch control--------------------------------------------
+    if (this.gui.isKeyPressed("KeyL")) {
+      text += " L ";
+      keysPressed = true;
+
+      if (this.supply1.state == SupplyStates.INACTIVE) {
+        this.supply1.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      } else if (this.supply2.state == SupplyStates.INACTIVE) {
+        this.supply2.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      } else if (this.supply3.state == SupplyStates.INACTIVE) {
+        this.supply3.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      } else if (this.supply4.state == SupplyStates.INACTIVE) {
+        this.supply4.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      } else if (this.supply5.state == SupplyStates.INACTIVE) {
+        this.supply5.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      }
+
+    }
+
+    //Console Log------------------------------------------------------
+    if (keysPressed) {
+      console.log(text);
+    }
+
+
+
   }
 
   update(t) {
@@ -194,8 +222,11 @@ class MyScene extends CGFscene {
     this.checkKeys();
 
     this.vehicle.update(elapsedTime);
-    //this.supply.update();
-
+    this.supply1.update();
+    this.supply2.update();
+    this.supply3.update();
+    this.supply4.update();
+    this.supply5.update();
   }
 
   display() {
@@ -257,18 +288,6 @@ class MyScene extends CGFscene {
       this.translate(0, 0, 0);
       this.terrain.display();
       this.popMatrix();
-    }
-
-    if (this.displaySupply) {
-      this.pushMatrix();
-      var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
-        0.0, this.scaleFactor, 0.0, 0.0,
-        0.0, 0.0, this.scaleFactor, 0.0,
-        0.0, 0.0, 0.0, 1.0];
-      this.multMatrix(sca);
-      this.supply.display();
-      this.popMatrix();
-
     }
 
     // ---- END Primitive drawing section

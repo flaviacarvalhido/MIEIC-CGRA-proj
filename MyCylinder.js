@@ -26,6 +26,7 @@ class MyCylinder extends CGFobject {
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
+
     }
 
     initLateral(){
@@ -68,4 +69,6 @@ class MyCylinder extends CGFobject {
             angle += this.initAngle;
         }
     }
+    
+    
 }

@@ -16,33 +16,79 @@ class MyVShape extends CGFobject {
         this.gondola.initBuffers();
         this.gondolamidle.initBuffers();
 
+        this.boy=false;
+        this.girl=true;
+        this.other=false;
+
         this.initMaterials();
     }
-
     initMaterials(){
         this.bodytexture = new CGFappearance(this.scene);
         this.bodytexture.setAmbient(0.7,0.7,0.7,1);
         this.bodytexture.setDiffuse(0.9,0.9,0.9,1);
         this.bodytexture.setShininess(10);
-        this.bodytexture.loadTexture('images/cubemap.png');
+        if(this.girl){
+            console.log("girl");
+            this.bodytexture.loadTexture('images/TexturesVehicle/pinkhearts.jpg');
+        }
+        else if(this.boy){
+            console.log("boy");
+            this.bodytexture.loadTexture('images/TexturesVehicle/bluestripes.png')
+        }
+        else if(this.other){
+            console.log("other");
+            this.bodytexture.loadTexture('images/TexturesVehicle/graywood.jpg')
+        }
         this.bodytexture.setTextureWrap('REPEAT','REPEAT');
-
+//############################################################################
         this.lemestexture = new CGFappearance(this.scene);
         this.lemestexture.setAmbient(0.7,0.7,0.7,1);
         this.lemestexture.setDiffuse(0.9,0.9,0.9,1);
         this.lemestexture.setShininess(10);
-        this.lemestexture.loadTexture('images/skybox.png');
+        if(this.girl){
+            console.log("girl");
+            this.lemestexture.loadTexture('images/TexturesVehicle/pink.jpg');
+        }
+        else if(this.boy){
+            console.log("boy");
+            this.lemestexture.loadTexture('images/TexturesVehicle/Bletter.png')
+        }
+        else if(this.other){
+            console.log("other");
+            this.lemestexture.loadTexture('images/TexturesVehicle/greenstripes.jpg')
+        }
         this.lemestexture.setTextureWrap('REPEAT','REPEAT');
+//############################################################################
+        this.gondolatexture = new CGFappearance(this.scene);
+        this.gondolatexture.setAmbient(0.7,0.7,0.7,1);
+        this.gondolatexture.setDiffuse(0.9,0.9,0.9,1);
+        this.gondolatexture.setShininess(10);
+        if(this.girl){
+            console.log("girl");
+            this.gondolatexture.loadTexture('images/TexturesVehicle/pink.jpg');
+        }
+        else if(this.boy){
+            console.log("boy");
+            this.gondolatexture.loadTexture('images/TexturesVehicle/darkbluetxt.jpg')
+        }
+        else if(this.other){
+            console.log("other");
+            this.gondolatexture.loadTexture('images/TexturesVehicle/greenstripes.jpg')
+        }
+        this.gondolatexture.setTextureWrap('REPEAT','REPEAT');
     }
 
+
     corpoDisplay(){
-        this.bodytexture.apply();
         this.scene.pushMatrix();
+        this.bodytexture.apply();
         this.scene.scale(1, 2, 1);
         this.corpo.display();
         this.scene.popMatrix();
     }
     gondolaDisplay() {
+        this.gondolatexture.apply();
+
         this.scene.pushMatrix();
         this.scene.translate(0, -0.25, 1.2);
         this.scene.scale(0.3, 0.7, 0.30);
@@ -96,14 +142,14 @@ class MyVShape extends CGFobject {
         this.scene.translate(-0.2, -0.6, 1.1);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 0.4, 0.4);
-        this.helice.display(vel);
+        this.helice.display(vel*40);
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0.2, -0.6, 1.1);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 0.4, 0.4);
-        this.helice.display(vel);
+        this.helice.display(vel*40);
         this.scene.popMatrix();
     }
     

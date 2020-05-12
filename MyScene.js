@@ -51,6 +51,10 @@ class MyScene extends CGFscene {
     this.supply4 = new MySupply(this);
     this.supply5 = new MySupply(this);
 
+    this.supplies = [this.supply1, this.supply2, this.supply3, this.supply4, this.supply5];
+
+    this.supplyDropNumber = 0;
+
     //Objects connected to MyInterface--------------------------------
     this.displayAxis = true;
     this.displaySphere = false;
@@ -134,6 +138,7 @@ class MyScene extends CGFscene {
         this.supply3.reset();
         this.supply4.reset();
         this.supply5.reset();
+        this.supplyDropNumber = 0;
       }
       if (this.gui.isKeyPressed("KeyP")) {
         text += " P ";
@@ -181,6 +186,7 @@ class MyScene extends CGFscene {
         this.supply3.reset();
         this.supply4.reset();
         this.supply5.reset();
+        this.supplyDropNumber = 0;
       }
 
     }
@@ -190,18 +196,10 @@ class MyScene extends CGFscene {
       text += " L ";
       keysPressed = true;
 
-      if (this.supply1.state == SupplyStates.INACTIVE) {
-        this.supply1.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply2.state == SupplyStates.INACTIVE) {
-        this.supply2.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply3.state == SupplyStates.INACTIVE) {
-        this.supply3.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply4.state == SupplyStates.INACTIVE) {
-        this.supply4.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply5.state == SupplyStates.INACTIVE) {
-        this.supply5.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      }
+      if (this.supplyDropNumber <= 4)
+        this.supplies[this.supplyDropNumber].drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
 
+      this.supplyDropNumber++;
     }
 
     //Console Log------------------------------------------------------
@@ -285,11 +283,17 @@ class MyScene extends CGFscene {
 
     if (this.displayTerrain) {
       this.pushMatrix();
-      this.translate(0, 0, 0);
+      this.translate(0, -0.1, 0);     //para as supplies não ficarem 'clipped' na textura do terreno
       this.terrain.display();
       this.popMatrix();
     }
 
+
+    this.supply1.display();
+    this.supply2.display();
+    this.supply3.display();
+    this.supply4.display();
+    this.supply5.display();
     // ---- END Primitive drawing section
 
   }

@@ -43,6 +43,7 @@ class MyScene extends CGFscene {
     this.plane = new MyPlane(this, 3, 0, 4, 0, 4);
     this.terrain = new MyTerrain(this);
     this.leme = new MyLeme(this);
+    this.billboard=new MyBillboard(this);
 
     //Supplies--------------------------------------------------------
     this.supply1 = new MySupply(this);
@@ -60,6 +61,7 @@ class MyScene extends CGFscene {
     this.displayPlane = false;
     this.displayTerrain = false;
     this.displayLeme = false;
+    this.displayBillboard = false;
     this.selectedTexture = 0;
     this.speedFactor = 0.1;
     this.scaleFactor = 1;
@@ -162,6 +164,27 @@ class MyScene extends CGFscene {
         }
         this.vehicle.vehicleShape.initMaterials();
       }
+      //Supply launch control--------------------------------------------
+      if (this.gui.isKeyPressed("KeyL")) {
+        text += " L ";
+        keysPressed = true;
+
+        if (this.supply1.state == SupplyStates.INACTIVE) {
+          this.supply1.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+        } else if (this.supply2.state == SupplyStates.INACTIVE) {
+          this.supply2.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+        } else if (this.supply3.state == SupplyStates.INACTIVE) {
+          this.supply3.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+        } else if (this.supply4.state == SupplyStates.INACTIVE) {
+          this.supply4.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+        } else if (this.supply5.state == SupplyStates.INACTIVE) {
+          this.supply5.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+        }
+        else{
+          console.log("ola");
+        }
+
+      }
       if (!this.gui.isKeyPressed("KeyA") && !this.gui.isKeyPressed("KeyD"))
         this.vehicle.lemeTurn = 0;
 
@@ -181,25 +204,6 @@ class MyScene extends CGFscene {
         this.supply3.reset();
         this.supply4.reset();
         this.supply5.reset();
-      }
-
-    }
-
-    //Supply launch control--------------------------------------------
-    if (this.gui.isKeyPressed("KeyL")) {
-      text += " L ";
-      keysPressed = true;
-
-      if (this.supply1.state == SupplyStates.INACTIVE) {
-        this.supply1.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply2.state == SupplyStates.INACTIVE) {
-        this.supply2.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply3.state == SupplyStates.INACTIVE) {
-        this.supply3.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply4.state == SupplyStates.INACTIVE) {
-        this.supply4.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
-      } else if (this.supply5.state == SupplyStates.INACTIVE) {
-        this.supply5.drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
       }
 
     }
@@ -282,6 +286,9 @@ class MyScene extends CGFscene {
 
     if (this.displayLeme)
       this.leme.display();
+
+    if (this.displayBillboard)
+      this.billboard.display();
 
     if (this.displayTerrain) {
       this.pushMatrix();

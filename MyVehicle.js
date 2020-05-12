@@ -20,26 +20,8 @@ class MyVehicle extends CGFobject {
         this.autoPAngle = 0;
 
         //BANDEIRA:
-        this.bandeiratxt = new CGFappearance(this.scene);
-        this.bandeiratxt.setAmbient(0.7, 0.7, 0.7, 1);
-        this.bandeiratxt.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.bandeiratxt.setShininess(10);
-        this.bandeiratxt.loadTexture('images/testMap.jpg');
-        this.bandeiratxt.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.bandeira = new MyPlane(this.scene, 20);
-
-        this.shader1 = new CGFshader(this.scene.gl, "shaders/bandeiraR.vert", "shaders/bandeira.frag");
-        this.shader1.setUniformsValues({ uSampler1: 3 })
-        this.shader1.setUniformsValues({ speed: this.speed });
-        this.shader1.setUniformsValues({ timeFactor: this.prevUpdate });
-
-        this.shader2 = new CGFshader(this.scene.gl, "shaders/bandeiraL.vert", "shaders/bandeira.frag");
-        this.shader2.setUniformsValues({ uSampler1: 3 })
-        this.shader2.setUniformsValues({ speed: this.speed });
-        this.shader2.setUniformsValues({ timeFactor: this.prevUpdate });
-
-        this.bandeiramap = new CGFtexture(this.scene, "images/testMap.jpg");
+        this.bandeira = new MyFlag(this.scene, 20);
 
         //FIO:
         this.fio = new MyCylinder(scene,10);
@@ -53,30 +35,6 @@ class MyVehicle extends CGFobject {
         this.initBuffers();
     }
 
-    bandeiraDisplay() {
-        this.bandeiratxt.apply();
-        this.scene.setActiveShader(this.shader1);
-        this.bandeiramap.bind(3);
-        this.scene.pushMatrix();
-        this.scene.translate(0, -4, 0);
-        this.scene.rotate(3 * Math.PI / 2, 1, 0, 0);
-        this.scene.rotate(3 * Math.PI / 2, 0, 1, 0);
-        this.scene.rotate(Math.PI, 1, 0, 0);
-        this.scene.scale(1.7, 0.9, 1);
-        this.bandeira.display();
-        this.scene.popMatrix();
-
-        this.scene.setActiveShader(this.shader2);
-        this.bandeiramap.bind(3);
-        this.scene.pushMatrix();
-        this.scene.translate(0, -4, 0);
-        this.scene.rotate(3 * Math.PI / 2, 1, 0, 0);
-        this.scene.rotate(3 * Math.PI / 2, 0, 1, 0);
-        this.scene.scale(1.7, 0.9, 1);
-        this.bandeira.display();
-        this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
-    }
 
     fiosDisplay(){
         this.scene.pushMatrix();
@@ -138,10 +96,12 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, 0, -0.5); //pos inicial
         this.scene.rotate(90 * Math.PI / 180, 1, 0, 0);
 
+       // this.bandeira.display();
+
         this.scene.pushMatrix();
         this.fiosDisplay();
         this.scene.popMatrix();
-        this.bandeiraDisplay();
+        
         this.vehicleShape.display(this.lemeTurn, this.vel);
 
         super.display();
@@ -161,10 +121,7 @@ class MyVehicle extends CGFobject {
                 this.x += 0.1 * elapsedTime * this.vel * Math.sin(this.angY * Math.PI / 180.0);
             }
     
-            this.shader1.setUniformsValues({ speed: this.speed });
-            this.shader1.setUniformsValues({ timeFactor: elapsedTime / 1000 % 1000 });
-            this.shader2.setUniformsValues({ speed: this.speed });
-            this.shader2.setUniformsValues({ timeFactor: elapsedTime / 1000 % 1000 });
+           // this.bandeira.update(elapsedTime / 1000 % 1000, this.vel);
 
     }
 

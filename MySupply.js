@@ -34,7 +34,6 @@ class MySupply extends CGFobject {
 
         if (this.state == SupplyStates.FALLING) {
             this.y = this.y - 10 / 60;
-            this.display();
         }
 
     }

@@ -53,7 +53,7 @@ class MyScene extends CGFscene {
 
     this.supplies = [this.supply1, this.supply2, this.supply3, this.supply4, this.supply5];
 
-    this.supplyDropNumber = 0;
+    this.nSuppliesDelivered = 0;
 
     //Objects connected to MyInterface--------------------------------
     this.displayAxis = true;
@@ -138,7 +138,7 @@ class MyScene extends CGFscene {
         this.supply3.reset();
         this.supply4.reset();
         this.supply5.reset();
-        this.supplyDropNumber = 0;
+        this.nSuppliesDelivered = 0;
       }
       if (this.gui.isKeyPressed("KeyP")) {
         text += " P ";
@@ -186,7 +186,7 @@ class MyScene extends CGFscene {
         this.supply3.reset();
         this.supply4.reset();
         this.supply5.reset();
-        this.supplyDropNumber = 0;
+        this.nSuppliesDelivered = 0;
       }
 
     }
@@ -196,10 +196,10 @@ class MyScene extends CGFscene {
       text += " L ";
       keysPressed = true;
 
-      if (this.supplyDropNumber <= 4)
-        this.supplies[this.supplyDropNumber].drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      if (this.nSuppliesDelivered <= 4)
+        this.supplies[this.nSuppliesDelivered].drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
 
-      this.supplyDropNumber++;
+      this.nSuppliesDelivered++;
     }
 
     //Console Log------------------------------------------------------

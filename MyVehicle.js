@@ -20,8 +20,7 @@ class MyVehicle extends CGFobject {
         this.autoPAngle = 0;
 
         //BANDEIRA:
-
-        this.bandeira = new MyFlag(this.scene, 20);
+        this.bandeira = new MyFlag(this.scene);
 
         //FIO:
         this.fio = new MyCylinder(scene,10);
@@ -96,7 +95,7 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, 0, -0.5); //pos inicial
         this.scene.rotate(90 * Math.PI / 180, 1, 0, 0);
 
-       // this.bandeira.display();
+        this.bandeira.display();
 
         this.scene.pushMatrix();
         this.fiosDisplay();
@@ -108,20 +107,20 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
     }
 
-    update(elapsedTime) {
+    update(time) {
         //var text = "updating ";
         //console.log(text);
             if (this.autoP) {
-                this.autoPAngle += 2 * Math.PI * elapsedTime / 5000.0;
+                this.autoPAngle += 2 * Math.PI * time / 5000.0;
                 //var text2 = "in autoP ";
                 //console.log(text2);
             }
             else {
-                this.z += 0.1 * elapsedTime * this.vel * Math.cos(this.angY * Math.PI / 180.0);
-                this.x += 0.1 * elapsedTime * this.vel * Math.sin(this.angY * Math.PI / 180.0);
+                this.z += 0.1 * time * this.vel * Math.cos(this.angY * Math.PI / 180.0);
+                this.x += 0.1 * time * this.vel * Math.sin(this.angY * Math.PI / 180.0);
             }
     
-           // this.bandeira.update(elapsedTime / 1000 % 1000, this.vel);
+            this.bandeira.update(time, this.vel);
 
     }
 

@@ -40,7 +40,7 @@ class MyVShape extends CGFobject {
             this.bodytexture.loadTexture('images/TexturesVehicle/graywood.jpg')
         }
         this.bodytexture.setTextureWrap('REPEAT','REPEAT');
-//############################################################################
+//_______________________________________________________________________________
         this.lemestexture = new CGFappearance(this.scene);
         this.lemestexture.setAmbient(0.7,0.7,0.7,1);
         this.lemestexture.setDiffuse(0.9,0.9,0.9,1);
@@ -58,7 +58,7 @@ class MyVShape extends CGFobject {
             this.lemestexture.loadTexture('images/TexturesVehicle/greenstripes.jpg')
         }
         this.lemestexture.setTextureWrap('REPEAT','REPEAT');
-//############################################################################
+//__________________________________________________________________________________________
         this.gondolatexture = new CGFappearance(this.scene);
         this.gondolatexture.setAmbient(0.7,0.7,0.7,1);
         this.gondolatexture.setDiffuse(0.9,0.9,0.9,1);

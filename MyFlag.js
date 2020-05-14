@@ -1,13 +1,20 @@
 class MyFlag extends CGFobject {
 	constructor(scene) {
         super(scene);
-        this.flag = new MyPlane(this.scene, 20);
+        this.flag = new MyPlane(this.scene, 40,true);
         
-        this.initTexture(this.scene);
+        this.shader = new CGFshader(this.scene.gl, "shaders/bandeira.vert", "shaders/bandeira.frag");
+        this.texture = new CGFtexture(this.scene, "images/cubemap.png");
+
+        this.shader.setUniformsValues({uSampler: 0});
+        this.shader.setUniformsValues({speedF: 0});
+        this.shader.setUniformsValues({timeF: 0});
+
+        //this.initTexture(this.scene);
 
     }
 
-    initTexture(scene){
+    /*initTexture(scene){
         //texture
         this.texture = new CGFappearance(this.scene);
         this.texture.setAmbient(0.1, 0.1, 0.1, 1);
@@ -24,35 +31,47 @@ class MyFlag extends CGFobject {
         this.shader.setUniformsValues({ timeFactor: 3 });
 
         this.texture = new CGFtexture(this.scene,"images/cubemap.png");
-    }
+    }*/
     
     update(t, v){
-        this.shader.setUniformsValues({speedFactor: v});
-        this.shader.setUniformsValues({timeFactor: t / 1000 % 1000});
+        this.shader.setUniformsValues({speedF: v});
+        this.shader.setUniformsValues({timeF: t / 100 % 1000 });
     }
 	
 	display(){
-        
-        this.scene.setActiveShader(this.shader);
-        this.texture.bind(3);
-        
         this.scene.pushMatrix();
 
         this.scene.translate(0,-1.3,0);
         this.scene.rotate(Math.PI/2, -1, 0, 0);
+        this.scene.scale(1.4,0.7,1);
+        this.scene.translate(0,0,-2);
+        this.scene.rotate(Math.PI/2,0,1,0);
 
-        this.scene.translate(0,0,-2.8);
-        this.scene.scale(1,1,2);
-        this.scene.rotate(Math.PI/2, 0, -1, 0);
-        this.shader.setUniformsValues( {side: 1} );
-        this.flag.display();
-
-        this.shader.setUniformsValues( {side: 0} );
-        this.scene.rotate(Math.PI, 0, -1, 0);
+        this.scene.setActiveShader(this.shader);
+        this.texture.bind(0);
         this.flag.display();
 
         this.scene.popMatrix();
 
         this.scene.setActiveShader(this.scene.defaultShader);
+
+        
+/*
+        this.scene.setActiveShader(this.shader);
+        this.texture.bind(3);
+        
+        this.scene.pushMatrix();
+
+        //this.scene.translate(0,-1.3,0);
+        //this.scene.rotate(Math.PI/2, -1, 0, 0);
+
+        this.scene.translate(0,0,-2.8);
+        this.scene.scale(1,1,2);
+        this.scene.rotate(Math.PI/2, 0, -1, 0);
+        this.flag.display();
+
+        this.scene.popMatrix();
+
+        this.scene.setActiveShader(this.scene.defaultShader);*/
     }
 }

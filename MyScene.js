@@ -192,11 +192,12 @@ class MyScene extends CGFscene {
       }
 
     }
-
     //Supply launch control--------------------------------------------
     if (this.gui.isKeyPressed("KeyL")) {
       text += " L ";
       keysPressed = true;
+
+      this.billboard.update();
 
       if (this.nSuppliesDelivered <= 4)
         this.supplies[this.nSuppliesDelivered].drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
@@ -222,6 +223,7 @@ class MyScene extends CGFscene {
     this.checkKeys();
 
     this.vehicle.update(elapsedTime);
+
     this.supply1.update();
     this.supply2.update();
     this.supply3.update();
@@ -264,7 +266,6 @@ class MyScene extends CGFscene {
     }
 
     if (this.displayVehicle) {
-
       this.pushMatrix();
 
       var sca = [this.scaleFactor, 0.0, 0.0, 0.0,

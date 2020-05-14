@@ -9,9 +9,13 @@ class MyBillboard extends CGFobject {
 
         this.dropped = 0;
 
-        this.shader = new CGFshader(scene.gl,'shaders/billboard.vert','shaders/billboard.frag');
+        this.shader = new CGFshader(scene.gl,'shaders/gradiente.vert','shaders/gradiente.frag');
         this.shader.setUniformsValues({drops: this.dropped})
 
+        this.initMaterials();
+    }
+    
+    initMaterials(){
         this.blue = new CGFappearance(this.scene);
         this.blue.setAmbient(1, 1, 1, 1);
         this.blue.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -37,7 +41,6 @@ class MyBillboard extends CGFobject {
         this.textSup.setTextureWrap('REPEAT', 'REPEAT');
 
     }
-    
 
     update() {
         this.shader.setUniformsValues({ drops: ++this.dropped});

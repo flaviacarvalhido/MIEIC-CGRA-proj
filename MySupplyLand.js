@@ -165,7 +165,7 @@ class MySupplyLand extends CGFobject {
 
         //content
         this.appearance.apply();
-        this.scene.setActiveShader(this.contentShader);
+       // this.scene.setActiveShader(this.contentShader);
         this.scene.pushMatrix();
         this.scene.scale(0.03, 0.03, 0.03);
         this.scene.scale(0.5, 0.5, 0.5);
@@ -173,7 +173,7 @@ class MySupplyLand extends CGFobject {
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.content.display();
         this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
+       // this.scene.setActiveShader(this.scene.defaultShader);
     }
 
 

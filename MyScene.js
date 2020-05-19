@@ -224,11 +224,11 @@ class MyScene extends CGFscene {
 
     this.vehicle.update(elapsedTime);
 
-    this.supply1.update();
-    this.supply2.update();
-    this.supply3.update();
-    this.supply4.update();
-    this.supply5.update();
+    this.supply1.update(elapsedTime);
+    this.supply2.update(elapsedTime);
+    this.supply3.update(elapsedTime);
+    this.supply4.update(elapsedTime);
+    this.supply5.update(elapsedTime);
   }
 
   display() {

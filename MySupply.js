@@ -26,14 +26,18 @@ class MySupply extends CGFobject {
         this.y = 10;
         this.z = 0;
 
+        this.vel = this.y/3;
+
         this.state = SupplyStates.INACTIVE;
 
     }
 
-    update() {
+    update(t) {
 
+        console.log("HERE");
         if (this.state == SupplyStates.FALLING) {
-            this.y = this.y - 10 / 60;
+            this.y-=this.vel*t/1000;
+            //this.y = this.y - 10 / 60;
         }
 
     }

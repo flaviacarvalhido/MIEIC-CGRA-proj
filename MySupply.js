@@ -33,11 +33,9 @@ class MySupply extends CGFobject {
     }
 
     update(t) {
-
         if (this.state == SupplyStates.FALLING) {
             this.y -= this.vel * t / 1000;
         }
-
     }
 
     drop(x, y, z) {

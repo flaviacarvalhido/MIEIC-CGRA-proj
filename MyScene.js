@@ -293,12 +293,15 @@ class MyScene extends CGFscene {
     if (this.displayVehicle) {
       this.pushMatrix();
 
-      var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+      /*var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
         0.0, this.scaleFactor, 0.0, 0.0,
         0.0, 0.0, this.scaleFactor, 0.0,
         0.0, 0.0, 0.0, 1.0];
 
-      this.multMatrix(sca);
+      this.multMatrix(sca);*/
+      this.translate(this.vehicle.x, this.vehicle.y, this.vehicle.z);
+      this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+      this.translate(-this.vehicle.x, -this.vehicle.y, -this.vehicle.z);
       this.vehicle.display();
       this.popMatrix();
     }

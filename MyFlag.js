@@ -22,19 +22,11 @@ class MyFlag extends CGFobject {
         this.shader.setUniformsValues({ uSampler: 1 });
         this.shader.setUniformsValues({ speedF: 0 });
         this.shader.setUniformsValues({ timeF: 0 });
-
-        this.shaderotherside = new CGFshader(this.scene.gl, "shaders/bandeiraotherside.vert", "shaders/bandeira.frag");
-        this.shaderotherside.setUniformsValues({ uSampler: 1 });
-        this.shaderotherside.setUniformsValues({ speedF: 0 });
-        this.shaderotherside.setUniformsValues({ timeF: 0 });
     }
 
     update(t, v) {
         this.shader.setUniformsValues({ timeF: t });
         this.shader.setUniformsValues({ speedF: v });
-
-        this.shaderotherside.setUniformsValues({ timeF: t });
-        this.shaderotherside.setUniformsValues({ speedF: v });
     }
 
     display() {
@@ -43,26 +35,6 @@ class MyFlag extends CGFobject {
         //flag
 
         this.scene.setActiveShader(this.shader);
-
-        this.scene.pushMatrix();
-
-        this.scene.translate(-10, -3.7, 0);
-        this.scene.rotate(-Math.PI / 2, 0, 0, 1);
-        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-        this.scene.translate(0, 0, 10);
-        this.texture.apply();
-
-        this.flag.display();
-
-        this.scene.popMatrix();
-
-        this.scene.setActiveShader(this.scene.defaultShader);
-
-
-
-        //flagotherside
-
-        this.scene.setActiveShader(this.shaderotherside);
 
         this.scene.pushMatrix();
 

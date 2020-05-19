@@ -266,6 +266,7 @@ class MyScene extends CGFscene {
       this.multMatrix(sca);
       this.cylinderMaterial.apply();
       this.cylinder.display();
+      this.popMatrix();
     }
 
     if (this.displaySphere) {

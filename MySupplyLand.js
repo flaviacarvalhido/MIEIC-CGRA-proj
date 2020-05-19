@@ -11,7 +11,7 @@ class MySupplyLand extends CGFobject {
         this.back = new MyQuad(scene);
         this.left = new MyQuad(scene);
         this.right = new MyQuad(scene);
-        this.content = new Teapot(scene);
+        //this.content = new Teapot(scene);
 
 
         this.initMat();
@@ -82,7 +82,7 @@ class MySupplyLand extends CGFobject {
         this.newmat.loadTexture('images/supply.jpg');
         this.newmat.setTextureWrap('REPEAT', 'REPEAT');
 
-
+        /*
         //content (teapot) appearance & shader
         this.appearance = new CGFappearance(this.scene);
         this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
@@ -91,6 +91,7 @@ class MySupplyLand extends CGFobject {
         this.appearance.setShininess(120);
 
         this.contentShader = new CGFshader(this.scene.gl, "shaders/flat.vert", "shaders/flat.frag");
+        */
     }
 
 
@@ -162,7 +163,7 @@ class MySupplyLand extends CGFobject {
         this.front.display();
         this.scene.popMatrix();
 
-
+        /*
         //content
         this.appearance.apply();
         this.scene.setActiveShader(this.contentShader);
@@ -174,6 +175,7 @@ class MySupplyLand extends CGFobject {
         this.content.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
+        */
     }
 
 

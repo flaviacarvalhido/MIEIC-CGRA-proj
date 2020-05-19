@@ -8,16 +8,14 @@ class MyFlag extends CGFobject {
     }
 
     initTexture(scene) {
-        //texture
         this.texture = new CGFappearance(this.scene);
         this.texture.setAmbient(0.1, 0.1, 0.1, 1);
         this.texture.setDiffuse(0.9, 0.9, 0.9, 1);
         this.texture.setSpecular(0.0, 0.0, 0.0, 1);
         this.texture.setShininess(10.0);
-        this.texture.loadTexture('images/cubemap.png');
+        this.texture.loadTexture('images/bandeiraPort.jpg');
         this.texture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
-        //shaders
         this.shader = new CGFshader(this.scene.gl, "shaders/bandeira.vert", "shaders/bandeira.frag");
         this.shader.setUniformsValues({ uSampler: 1 });
         this.shader.setUniformsValues({ speedF: 0 });
@@ -31,13 +29,11 @@ class MyFlag extends CGFobject {
 
     display() {
 
-
-        //flag
-
         this.scene.setActiveShader(this.shader);
 
         this.scene.pushMatrix();
 
+        this.scene.translate(0, 1.6, 0);
         this.scene.scale(1, 1.5, 1);
         this.scene.translate(-10, -3.7, 0);
         this.scene.rotate(-Math.PI / 2, 0, 0, 1);

@@ -43,7 +43,7 @@ class MyScene extends CGFscene {
     this.plane = new MyPlane(this, 3, 0, 4, 0, 4);
     this.terrain = new MyTerrain(this);
     this.leme = new MyLeme(this);
-    this.billboard=new MyBillboard(this);
+    this.billboard = new MyBillboard(this);
 
     //Supplies--------------------------------------------------------
     this.supply1 = new MySupply(this);
@@ -51,6 +51,7 @@ class MyScene extends CGFscene {
     this.supply3 = new MySupply(this);
     this.supply4 = new MySupply(this);
     this.supply5 = new MySupply(this);
+    this.content = new Teapot(this);  //for memory and rendering efficiency reasons this is initialized here and not in SupplyLand.js
 
     this.supplies = [this.supply1, this.supply2, this.supply3, this.supply4, this.supply5];
 

@@ -34,7 +34,7 @@ class MyFlag extends CGFobject {
         this.scene.pushMatrix();
 
         this.scene.translate(0, 1.6, 0);
-        this.scene.scale(1,1.5,1);
+        this.scene.scale(1, 1.5, 1);
         this.scene.translate(-10, -3.7, 0);
         this.scene.rotate(-Math.PI / 2, 0, 0, 1);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);

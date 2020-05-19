@@ -52,7 +52,7 @@ class MyScene extends CGFscene {
     this.plane = new MyPlane(this, 3, 0, 4, 0, 4);
     this.terrain = new MyTerrain(this);
     this.leme = new MyLeme(this);
-    this.billboard=new MyBillboard(this);
+    this.billboard = new MyBillboard(this);
 
     //Supplies--------------------------------------------------------
     this.supply1 = new MySupply(this);
@@ -60,21 +60,20 @@ class MyScene extends CGFscene {
     this.supply3 = new MySupply(this);
     this.supply4 = new MySupply(this);
     this.supply5 = new MySupply(this);
+    this.content = new Teapot(this);  //for memory and rendering efficiency reasons this is initialized here and not in SupplyLand.js
 
     this.supplies = [this.supply1, this.supply2, this.supply3, this.supply4, this.supply5];
 
     this.nSuppliesDelivered = 0;
 
     //Objects connected to MyInterface--------------------------------
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.displaySphere = false;
-    this.displayMap = false;
+    this.displayMap = true;
     this.displayCylinder = false;
-    this.displayVehicle = false;
-    this.displayPlane = false;
-    this.displayTerrain = false;
-    this.displayLeme = false;
-    this.displayBillboard = false;
+    this.displayVehicle = true;
+    this.displayTerrain = true;
+    this.displayBillboard = true;
     this.selectedTexture = 0;
     this.speedFactor = 0.1;
     this.scaleFactor = 1;
@@ -245,7 +244,7 @@ class MyScene extends CGFscene {
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-    // Initialize Model-View matrix as identity (no transformation
+    // Initialize Model-View matrix as identity (no transformation)
     this.updateProjectionMatrix();
     this.loadIdentity();
     // Apply transformations corresponding to the camera position relative to the origin
@@ -271,13 +270,21 @@ class MyScene extends CGFscene {
     }
 
     if (this.displaySphere) {
+
+      this.pushMatrix();
+
+      if (this.displayTerrain) {
+        this.translate(0, 2, 0);  //when terrain is being displayed, it moves up so that it doesnt clip through the terrain
+      }
       this.sphereMaterial.apply();
       this.sphere.display();
+
+      this.popMatrix();
     }
 
     if (this.displayMap) {
       this.pushMatrix();
-      this.translate(0, 5, 0);
+      this.translate(0, 5, 0);  //to look better when the terrain is displayed
       this.cubeMap.display();
       this.popMatrix();
     }
@@ -294,12 +301,6 @@ class MyScene extends CGFscene {
       this.vehicle.display();
       this.popMatrix();
     }
-
-    if (this.displayPlane)
-      this.plane.display();
-
-    if (this.displayLeme)
-      this.leme.display();
 
     if (this.displayBillboard)
       this.billboard.display();

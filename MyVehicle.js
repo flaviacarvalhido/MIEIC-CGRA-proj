@@ -14,7 +14,7 @@ class MyVehicle extends CGFobject {
         this.z = 0;
 
         this.lemeTurn = 0;
-        this.vehicleShape=new MyVShape(this.scene)
+        this.vehicleShape = new MyVShape(this.scene)
 
         this.autoP = false;
         this.autoPAngle = 0;
@@ -23,7 +23,7 @@ class MyVehicle extends CGFobject {
         this.bandeira = new MyFlag(this.scene);
 
         //FIO:
-        this.fio = new MyCylinder(scene,10);
+        this.fio = new MyCylinder(scene, 10);
         this.fiotxt = new CGFappearance(this.scene);
         this.fiotxt.setAmbient(0.7, 0.7, 0.7, 1);
         this.fiotxt.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -35,19 +35,19 @@ class MyVehicle extends CGFobject {
     }
 
 
-    fiosDisplay(){
+    fiosDisplay() {
         this.scene.pushMatrix();
         this.fiotxt.apply();
 
         this.scene.pushMatrix();
-        this.scene.translate(0,-3.2,0.25);
-        this.scene.scale(0.025,1.7,0.025);
+        this.scene.translate(0, -3.2, 0.25);
+        this.scene.scale(0.025, 1.7, 0.025);
         this.fio.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(0,-3.2,-0.25);
-        this.scene.scale(0.025,1.7,0.025);
+        this.scene.translate(0, -3.2, -0.25);
+        this.scene.scale(0.025, 1.7, 0.025);
         this.fio.display();
         this.scene.popMatrix();
 
@@ -100,7 +100,7 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.fiosDisplay();
         this.scene.popMatrix();
-        
+
         this.vehicleShape.display(this.lemeTurn, this.vel);
 
         super.display();
@@ -108,19 +108,17 @@ class MyVehicle extends CGFobject {
     }
 
     update(time) {
-        //var text = "updating ";
-        //console.log(text);
-            if (this.autoP) {
-                this.autoPAngle += 2 * Math.PI * time / 5000.0;
-                //var text2 = "in autoP ";
-                //console.log(text2);
-            }
-            else {
-                this.z += 0.1 * time * this.vel * Math.cos(this.angY * Math.PI / 180.0);
-                this.x += 0.1 * time * this.vel * Math.sin(this.angY * Math.PI / 180.0);
-            }
-    
-            this.bandeira.update(time, this.vel);
+
+        if (this.autoP) {
+            this.autoPAngle += 2 * Math.PI * time / 5000.0;
+
+        }
+        else {
+            this.z += 0.1 * time * this.vel * Math.cos(this.angY * Math.PI / 180.0);
+            this.x += 0.1 * time * this.vel * Math.sin(this.angY * Math.PI / 180.0);
+        }
+
+        this.bandeira.update(time, this.vel);
 
     }
 

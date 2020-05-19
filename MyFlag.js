@@ -1,20 +1,13 @@
 class MyFlag extends CGFobject {
-	constructor(scene) {
+    constructor(scene) {
         super(scene);
-        this.flag = new MyPlane(this.scene, 40,true);
-        
-        this.shader = new CGFshader(this.scene.gl, "shaders/bandeira.vert", "shaders/bandeira.frag");
-        this.texture = new CGFtexture(this.scene, "images/cubemap.png");
+        this.flag = new MyPlane(this.scene, 40, true);
 
-        this.shader.setUniformsValues({uSampler: 0});
-        this.shader.setUniformsValues({speedF: 0});
-        this.shader.setUniformsValues({timeF: 0});
-
-        //this.initTexture(this.scene);
+        this.initTexture(this.scene);
 
     }
 
-    /*initTexture(scene){
+    initTexture(scene) {
         //texture
         this.texture = new CGFappearance(this.scene);
         this.texture.setAmbient(0.1, 0.1, 0.1, 1);
@@ -22,56 +15,67 @@ class MyFlag extends CGFobject {
         this.texture.setSpecular(0.0, 0.0, 0.0, 1);
         this.texture.setShininess(10.0);
         this.texture.loadTexture('images/cubemap.png');
-        this.texture.setTextureWrap('REPEAT', 'REPEAT');
-        
+        this.texture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
         //shaders
         this.shader = new CGFshader(this.scene.gl, "shaders/bandeira.vert", "shaders/bandeira.frag");
         this.shader.setUniformsValues({ uSampler: 1 });
-        this.shader.setUniformsValues({ speedFactor: 3 });
-        this.shader.setUniformsValues({ timeFactor: 3 });
+        this.shader.setUniformsValues({ speedF: 0 });
+        this.shader.setUniformsValues({ timeF: 0 });
 
-        this.texture = new CGFtexture(this.scene,"images/cubemap.png");
-    }*/
-    
-    update(t, v){
-        this.shader.setUniformsValues({speedF: v});
-        this.shader.setUniformsValues({timeF: t / 100 % 1000 });
+        this.shaderotherside = new CGFshader(this.scene.gl, "shaders/bandeiraotherside.vert", "shaders/bandeira.frag");
+        this.shaderotherside.setUniformsValues({ uSampler: 1 });
+        this.shaderotherside.setUniformsValues({ speedF: 0 });
+        this.shaderotherside.setUniformsValues({ timeF: 0 });
     }
-	
-	display(){
-        this.scene.pushMatrix();
 
-        this.scene.translate(0,-1.3,0);
-        this.scene.rotate(Math.PI/2, -1, 0, 0);
-        this.scene.scale(1.4,0.7,1);
-        this.scene.translate(0,0,-2);
-        this.scene.rotate(Math.PI/2,0,1,0);
+    update(t, v) {
+        this.shader.setUniformsValues({ timeF: t });
+        this.shader.setUniformsValues({ speedF: v });
+
+        this.shaderotherside.setUniformsValues({ timeF: t });
+        this.shaderotherside.setUniformsValues({ speedF: v });
+    }
+
+    display() {
+
+
+        //flag
 
         this.scene.setActiveShader(this.shader);
-        this.texture.bind(0);
+
+        this.scene.pushMatrix();
+
+        this.scene.translate(-10, -3.7, 0);
+        this.scene.rotate(-Math.PI / 2, 0, 0, 1);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+        this.scene.translate(0, 0, 10);
+        this.texture.apply();
+
         this.flag.display();
 
         this.scene.popMatrix();
 
         this.scene.setActiveShader(this.scene.defaultShader);
 
-        
-/*
-        this.scene.setActiveShader(this.shader);
-        this.texture.bind(3);
-        
+
+
+        //flagotherside
+
+        this.scene.setActiveShader(this.shaderotherside);
+
         this.scene.pushMatrix();
 
-        //this.scene.translate(0,-1.3,0);
-        //this.scene.rotate(Math.PI/2, -1, 0, 0);
+        this.scene.translate(-10, -3.7, 0);
+        this.scene.rotate(-Math.PI / 2, 0, 0, 1);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+        this.scene.translate(0, 0, 10);
+        this.texture.apply();
 
-        this.scene.translate(0,0,-2.8);
-        this.scene.scale(1,1,2);
-        this.scene.rotate(Math.PI/2, 0, -1, 0);
         this.flag.display();
 
         this.scene.popMatrix();
 
-        this.scene.setActiveShader(this.scene.defaultShader);*/
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 }

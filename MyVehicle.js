@@ -114,8 +114,17 @@ class MyVehicle extends CGFobject {
 
         }
         else {
-            this.z += 0.1 * time * this.vel * Math.cos(this.angY * Math.PI / 180.0);
-            this.x += 0.1 * time * this.vel * Math.sin(this.angY * Math.PI / 180.0);
+            if(this.x<25 && this.z<25 && this.x>-25  && this.z>-25){
+                this.z += 0.1 * time * this.vel * Math.cos(this.angY * Math.PI / 180.0);
+                this.x += 0.1 * time * this.vel * Math.sin(this.angY * Math.PI / 180.0);
+            }
+            else{
+                if(this.x>25) this.x=24;
+                if(this.z>25) this.z=24;
+                if(this.x<-25) this.x=-24;
+                if(this.z<-25) this.z=-24;
+            }
+            
         }
 
         this.bandeira.update(time, this.vel);

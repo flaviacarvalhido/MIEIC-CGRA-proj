@@ -83,7 +83,7 @@ class MySupplyLand extends CGFobject {
         this.newmat.setTextureWrap('REPEAT', 'REPEAT');
 
 
-        //content (teapot) appearance & shader
+        //content (teapot) appearance
         this.appearance = new CGFappearance(this.scene);
         this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
         this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
@@ -174,7 +174,6 @@ class MySupplyLand extends CGFobject {
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.content.display();
         this.scene.popMatrix();
-
     }
 
 

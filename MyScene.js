@@ -58,15 +58,13 @@ class MyScene extends CGFscene {
     this.nSuppliesDelivered = 0;
 
     //Objects connected to MyInterface--------------------------------
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.displaySphere = false;
-    this.displayMap = false;
+    this.displayMap = true;
     this.displayCylinder = false;
-    this.displayVehicle = false;
-    this.displayPlane = false;
-    this.displayTerrain = false;
-    this.displayLeme = false;
-    this.displayBillboard = false;
+    this.displayVehicle = true;
+    this.displayTerrain = true;
+    this.displayBillboard = true;
     this.selectedTexture = 0;
     this.speedFactor = 0.1;
     this.scaleFactor = 1;
@@ -225,11 +223,11 @@ class MyScene extends CGFscene {
 
     this.vehicle.update(elapsedTime);
 
-    this.supply1.update();
-    this.supply2.update();
-    this.supply3.update();
-    this.supply4.update();
-    this.supply5.update();
+    this.supply1.update(elapsedTime);
+    this.supply2.update(elapsedTime);
+    this.supply3.update(elapsedTime);
+    this.supply4.update(elapsedTime);
+    this.supply5.update(elapsedTime);
   }
 
   display() {
@@ -237,7 +235,7 @@ class MyScene extends CGFscene {
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-    // Initialize Model-View matrix as identity (no transformation
+    // Initialize Model-View matrix as identity (no transformation)
     this.updateProjectionMatrix();
     this.loadIdentity();
     // Apply transformations corresponding to the camera position relative to the origin
@@ -255,13 +253,21 @@ class MyScene extends CGFscene {
     }
 
     if (this.displaySphere) {
+
+      this.pushMatrix();
+
+      if (this.displayTerrain) {
+        this.translate(0, 2, 0);  //when terrain is being displayed, it moves up so that it doesnt clip through the terrain
+      }
       this.sphereMaterial.apply();
       this.sphere.display();
+
+      this.popMatrix();
     }
 
     if (this.displayMap) {
       this.pushMatrix();
-      this.translate(0, 5, 0);
+      this.translate(0, 5, 0);  //to look better when the terrain is displayed
       this.cubeMap.display();
       this.popMatrix();
     }
@@ -278,12 +284,6 @@ class MyScene extends CGFscene {
       this.vehicle.display();
       this.popMatrix();
     }
-
-    if (this.displayPlane)
-      this.plane.display();
-
-    if (this.displayLeme)
-      this.leme.display();
 
     if (this.displayBillboard)
       this.billboard.display();

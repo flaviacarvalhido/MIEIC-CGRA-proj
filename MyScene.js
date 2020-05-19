@@ -35,6 +35,15 @@ class MyScene extends CGFscene {
     this.sphereMaterial.loadTexture("images/earth.jpg");
     this.sphereMaterial.setTextureWrap("Repeat", "Clamp to edge");
 
+    //Cylinder Material-----------------------------------------------
+    this.cylinderMaterial = new CGFappearance(this);
+    this.cylinderMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+    this.cylinderMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.cylinderMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+    this.cylinderMaterial.setShininess(10.0);
+    this.cylinderMaterial.loadTexture("images/cylindText.jpg");
+    this.cylinderMaterial.setTextureWrap("Clamp to edge", "Clamp to edge");
+
     //Initialize scene objects----------------------------------------
     this.axis = new CGFaxis(this);
     this.cubeMap = new MyCubeMap(this);
@@ -250,6 +259,13 @@ class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     if (this.displayCylinder) {
+      this.pushMatrix();
+      var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+        0.0, this.scaleFactor, 0.0, 0.0,
+        0.0, 0.0, this.scaleFactor, 0.0,
+        0.0, 0.0, 0.0, 1.0];
+      this.multMatrix(sca);
+      this.cylinderMaterial.apply();
       this.cylinder.display();
     }
 

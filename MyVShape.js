@@ -142,14 +142,14 @@ class MyVShape extends CGFobject {
         this.scene.translate(-0.2, -0.6, 1.1);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 0.4, 0.4);
-        this.helice.display(vel*40);
+        this.helice.display(vel);
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0.2, -0.6, 1.1);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 0.4, 0.4);
-        this.helice.display(vel*40);
+        this.helice.display(vel);
         this.scene.popMatrix();
     }
     
@@ -157,6 +157,6 @@ class MyVShape extends CGFobject {
         this.corpoDisplay();
         this.gondolaDisplay();
         this.lemesDisplay(turn);
-        this.helicesDisplay(speed);
+        this.helicesDisplay(speed*100);
     }
 }

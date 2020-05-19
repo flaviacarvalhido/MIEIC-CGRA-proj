@@ -34,7 +34,6 @@ class MySupply extends CGFobject {
 
     update(t) {
 
-        console.log("HERE");
         if (this.state == SupplyStates.FALLING) {
             this.y-=this.vel*t/1000;
             //this.y = this.y - 10 / 60;

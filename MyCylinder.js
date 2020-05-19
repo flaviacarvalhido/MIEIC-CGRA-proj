@@ -69,6 +69,5 @@ class MyCylinder extends CGFobject {
             angle += this.initAngle;
         }
     }
-    
-    
+
 }

@@ -3,19 +3,17 @@
  * @constructor
  */
 class MyBillboard extends CGFobject {
-	constructor(scene) {
+    constructor(scene) {
         super(scene);
         this.plane = new MyPlane(this.scene, 30);
 
-        this.dropped = 0;
-
-        this.shader = new CGFshader(scene.gl,'shaders/gradiente.vert','shaders/gradiente.frag');
-        this.shader.setUniformsValues({drops: this.dropped})
+        this.shader = new CGFshader(scene.gl, 'shaders/gradiente.vert', 'shaders/gradiente.frag');
+        this.shader.setUniformsValues({ drops: this.scene.nSuppliesDelivered })
 
         this.initMaterials();
     }
-    
-    initMaterials(){
+
+    initMaterials() {
         this.blue = new CGFappearance(this.scene);
         this.blue.setAmbient(1, 1, 1, 1);
         this.blue.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -43,15 +41,12 @@ class MyBillboard extends CGFobject {
     }
 
     update() {
-        this.shader.setUniformsValues({ drops: ++this.dropped});
+        this.shader.setUniformsValues({ drops: this.scene.nSuppliesDelivered });
     }
 
-    reset() {
-        this.dropped = 0;
-        this.shader.setUniformsValues({ drops: this.dropped });
-    }
 
-    boardDisplay(){
+
+    boardDisplay() {
         this.textSup.apply();
 
         this.scene.pushMatrix();
@@ -66,7 +61,7 @@ class MyBillboard extends CGFobject {
         this.scene.popMatrix();
     }
 
-    legsDisplay(){
+    legsDisplay() {
         this.gray.apply();
         this.scene.pushMatrix();
         this.scene.translate(-0.95, -1.0, 0.0);
@@ -95,13 +90,13 @@ class MyBillboard extends CGFobject {
         this.scene.popMatrix();
     }
 
-	display(){
+    display() {
         this.scene.pushMatrix();
         this.scene.translate(0.0, 2.0, -8.0);
-        
+
         this.boardDisplay();
         this.legsDisplay();
-    
+
 
         this.scene.setActiveShader(this.shader);
         this.scene.pushMatrix();

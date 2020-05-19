@@ -205,12 +205,11 @@ class MyScene extends CGFscene {
       text += " L ";
       keysPressed = true;
 
-      this.billboard.update();
-
       if (this.nSuppliesDelivered <= 4)
         this.supplies[this.nSuppliesDelivered].drop(this.vehicle.x, this.vehicle.y, this.vehicle.z);
 
       this.nSuppliesDelivered++;
+
     }
 
     //Console Log------------------------------------------------------
@@ -237,6 +236,8 @@ class MyScene extends CGFscene {
     this.supply3.update(elapsedTime);
     this.supply4.update(elapsedTime);
     this.supply5.update(elapsedTime);
+
+    this.billboard.update();
   }
 
   display() {

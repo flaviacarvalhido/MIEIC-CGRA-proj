@@ -16,7 +16,8 @@ void main() {
     vec3 offset = vec3 (0.0,0.0,0.0);
 	
     //offset.z=0.07*sin(vTextureCoord.s*15.0 + 0.3*timeF + 5.0*speedF);
-    offset.z=0.05*sin(aVertexPosition.x*speedF*5.0*timeF);
+    //offset.z=0.05*sin(aVertexPosition.x*speedF*5.0*timeF);
+    offset.z = 0.06*cos((aVertexPosition.x + timeF * (0.01 + speedF * 0.5))* 15.0);
 
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 }

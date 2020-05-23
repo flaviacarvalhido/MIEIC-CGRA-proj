@@ -3,9 +3,9 @@ Turma 5 Grupo 3
 Flávia Carvalho Gavinha Pereira Carvalhido - up201806857
 Mariana Oliveira Ramos - up201806869
 
--Todas as funcionalidades foram implementadas
--As hélices rodam quando se acelera o veículo (W) e rodam para o lado contrário quando se desacelera (S), ao virar o veículo (A ou D) os lemes inclinam de acordo com a direção de viragem
--A esfera e o cilindro são possíveis de se visualizar em cena através dos controlos da interface; o cilindro contém uma mensagem na sua textura onde informa o utilizador de uma funcionalidade adicional do programa
--Tal como informa o cilindro, se for pressionada a tecla 'C' o dírigível irá mudar para uma das suas 3 texturas diferentes, sendo que muda de forma cíclica de acordo com o número de vezes que a tecla C for pressionada
--O veículo encontra-se confinado ao CubeMap, ou seja, não pode sair da cena e sair do CubeMap. As supplies apenas passam ao estado FALLING se a tecla 'L' for pressionada quando o dirigível se encontrar a sobrevoar a zona plana do terreno
--Ao longo do projeto, experimentamos com vários objetos e polígonos e quando fizemos o design do objeto SupplyLand decidimos adicionar o clássico Bule (Teapot.js) no seu interior. Tentamos ainda aplicar-lhe um shader mas isso implicava grandes atrasos temporais na cena, algo que afetava o rendering geral e o movimento dos restantes objetos 
+-Todas as funcionalidades foram implementadas;
+-As hélices rodam quando se acelera o veículo (W) e rodam para o lado contrário quando se desacelera (S), ao virar o veículo (A ou D) os lemes inclinam de acordo com a direção de viragem;
+-A esfera e o cilindro são possíveis de se visualizar em cena através dos controlos da interface; o cilindro contém uma mensagem na sua textura onde informa o utilizador de uma funcionalidade adicional do programa;
+-Tal como informa o cilindro, se for pressionada a tecla 'C' o dírigível irá mudar para uma das suas 3 texturas diferentes, sendo que muda de forma cíclica de acordo com o número de vezes que a tecla C for pressionada;
+-O veículo encontra-se confinado ao CubeMap, ou seja, não pode sair da cena e sair do CubeMap. As supplies apenas passam ao estado FALLING se a tecla 'L' for pressionada quando o dirigível se encontrar a sobrevoar a zona plana do terreno;
+-Ao longo do projeto, experimentamos com vários objetos e polígonos e quando fizemos o design do objeto SupplyLand decidimos adicionar o clássico Bule (Teapot.js) no seu interior. Tentamos ainda aplicar-lhe um shader mas isso implicava grandes atrasos temporais na cena, algo que afetava o rendering geral e o movimento dos restantes objetos; 
